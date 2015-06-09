@@ -1,6 +1,8 @@
-package ToDoNotes;
+package ToDoNotes.Bean;
 
 import java.util.ArrayList;
+
+import ToDoNotes.Modle.Note;
 
 public class Group {
 	private String name;

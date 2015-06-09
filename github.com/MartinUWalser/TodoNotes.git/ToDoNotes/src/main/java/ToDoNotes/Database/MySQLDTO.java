@@ -1,4 +1,4 @@
-package ToDoNotes;
+package ToDoNotes.Database;
 
 public class MySQLDTO {
 

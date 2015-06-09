@@ -1,4 +1,4 @@
-package ToDoNotes;
+package ToDoNotes.Controller;
 
 public class NotesController {
 	//bla
