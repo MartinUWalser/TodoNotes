@@ -29,13 +29,7 @@ public class MySQLDAO {
 	private MySQLDAO() {
 		try {
 
-			// Datenbanktreiber für ODBC Schnittstellen laden.
-			// Für verschiedene ODBC-Datenbanken muss dieser Treiber
-			// nur einmal geladen werden.
 			Class.forName("com.mysql.jdbc.Driver");
-
-			// Verbindung zur ODBC-Datenbank 'sakila' herstellen.
-			// Es wird die JDBC-ODBC-Brücke verwendet.
 			conn = DriverManager.getConnection("jdbc:mysql://" + dbHost + ":"
 					+ dbPort + "/" + database + "?" + "user=" + dbUser + "&"
 					+ "password=" + dbPassword);
