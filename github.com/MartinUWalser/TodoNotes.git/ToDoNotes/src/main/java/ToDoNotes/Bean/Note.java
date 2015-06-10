@@ -1,10 +1,21 @@
-package ToDoNotes.Modle;
+package ToDoNotes.Bean;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
-public class Note {
-	private final int id = 0;
+@ManagedBean( name = "Note", eager = true)
+@RequestScoped
+@Entity
+public class Note implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue
+	private long id = 0;
 	private String title;
+	//Folien
 	private Date date;
 	private String description;
 	private boolean visible;
@@ -16,6 +27,14 @@ public class Note {
 		this.visible = visible;
 		this.done = done;
 		this.date = date;
+	}
+	@PostInit
+	private void postInit(){
+		this.title = "";
+		this.description = "";
+		this.visible = true;
+		this.done = false;
+		this.date = new Date();
 	}
 	
 	public void setTitle(String title) {

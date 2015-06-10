@@ -17,7 +17,6 @@
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
-
 	<context-param>
 		<param-name>JDBC-DRIVER</param-name>
 		<param-value>com.mysql.jdbc.Driver</param-value>

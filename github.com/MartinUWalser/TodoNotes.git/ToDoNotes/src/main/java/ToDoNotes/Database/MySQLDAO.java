@@ -1,5 +1,5 @@
 package ToDoNotes.Database;
 
-public class MySQLDTO {
+public class MySQLDAO {
 
 }
