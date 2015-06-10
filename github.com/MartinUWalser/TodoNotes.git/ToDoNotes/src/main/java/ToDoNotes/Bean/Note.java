@@ -33,8 +33,8 @@ public class Note implements Serializable {
 	}
 	@PostConstruct
 	private void postInit(){
-		this.title = "";
-		this.description = "";
+		this.title = "TestNote";
+		this.description = "Eduards liebligsfarbe ist Rosa :D, somit kann er alles was Rosa ist gebraucht. Macht mal Vorschläge!";
 		this.visible = true;
 		this.done = false;
 		this.date = new Date();
