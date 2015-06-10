@@ -1,10 +1,13 @@
 package ToDoNotes.Bean;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Date;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.persistence.*;
+
 
 @ManagedBean( name = "Note", eager = true)
 @RequestScoped
@@ -28,7 +31,7 @@ public class Note implements Serializable {
 		this.done = done;
 		this.date = date;
 	}
-	@PostInit
+	@PostConstruct
 	private void postInit(){
 		this.title = "";
 		this.description = "";
@@ -65,7 +68,7 @@ public class Note implements Serializable {
 		this.done = done;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
