@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ToDoNotes:war">
+    <output-path>$PROJECT_DIR$/github.com/MartinUWalser/TodoNotes.git/ToDoNotes/target</output-path>
+    <root id="archive" name="ToDoNotes.war">
+      <element id="artifact" artifact-name="ToDoNotes:war exploded" />
+    </root>
+  </artifact>
+</component>
