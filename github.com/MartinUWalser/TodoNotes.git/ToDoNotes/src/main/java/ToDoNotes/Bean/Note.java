@@ -17,12 +17,14 @@ public class Note implements Serializable {
 	@Id
 	@GeneratedValue
 	private long id = 0;
+
 	private String title;
-	//Folien
-	private Date date;
 	private String description;
+	private Date date;
 	private boolean visible;
 	private boolean done;
+	
+	public Note(){}
 	
 	public Note(String title, String description, boolean visible, boolean done, Date date){
 		this.title = title;
@@ -37,7 +39,10 @@ public class Note implements Serializable {
 		this.description = "Eduards liebligsfarbe ist Rosa :D, somit kann er alles was Rosa ist gebraucht. Macht mal Vorschläge!";
 		this.visible = true;
 		this.done = false;
-		this.date = new Date();
+	}
+	
+	public String getTitle(){
+		return this.title;
 	}
 	
 	public void setTitle(String title) {
