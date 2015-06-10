@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	    xmlns:f="http://java.sun.com/jsf/core"
-	    xmlns:h="http://java.sun.com/jsf/html">
-	 
-	<h:head>
-        <h:outputStylesheet name="css/style.css"  />
-	     <title>ToDo-Notes</title>
-	</h:head>
-	<h:body>
-<<<<<<< HEAD
-        <h:outputText value="#{Note.description}"></h:outputText>
-=======
-	<h:Button name ="test" />
-		<h:Button name="test"/>
->>>>>>> remotes/origin/michaelb
-	</h:body>
-	</html>
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet name="css/style.css"  />
+	<title>ToDo-Notes</title>
+</h:head>
+<h:body>
+	<div class="main">
+		<nav>
+			<ul class="fn-nav">
+				<li>
+					<a href="new.xhtml" id="new">Neu</a>
+				</li>
+				<li>
+					<a href="group.xhtml" id="group">Gruppen</a>
+				</li>
+				<li>
+					<a href="done.xhtml" id="done">Abgeschlossen</a>
+				</li>
+				<li>
+					<a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</h:body>
+</html>
