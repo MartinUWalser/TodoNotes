@@ -6,15 +6,31 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>Test</display-name>
 	<servlet>
-		<servlet-name>faces</servlet-name>
+		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>faces</servlet-name>
+		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	<context-param>
+		<param-name>JDBC-DRIVER</param-name>
+		<param-value>com.mysql.jdbc.Driver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DB-SERVER</param-name>
+		<param-value>jdbc:mysql://walser.in/ToDoNotes</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DB-USER</param-name>
+		<param-value>ToDo</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DB-PASSWORD</param-name>
+		<param-value>12ToDo21</param-value>
+	</context-param>
 </web-app>
