@@ -3,11 +3,43 @@ package ToDoNotes.Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Connection;
 
 public class NoteQuerys {
 	
-	public static void printNameList() {
+	public static boolean dbTest(){
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		ResultSet rS = null;
+		boolean test = false;
+		
+		String query = "SELECT ?;";
+		
+		try {
+			//Querry erstellen
+			pS = conn.prepareStatement(query);
+			pS.setInt(1, 1);
+			
+			//Ausführen
+			rS = pS.executeQuery();
+			
+			while(rS.next()){
+				if(rS.getInt(0) == 1){
+					test =true;
+				} ;
+			}
+			rS.close();
+			pS.close();
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return test;
+	}
+	
+	//public static void printNameList() {
 		/*conn = getInstance();
 
 		if (conn != null) {
@@ -122,5 +154,5 @@ public class NoteQuerys {
 				e.printStackTrace();
 			}
 		}*/
-	}
+	//}
 }

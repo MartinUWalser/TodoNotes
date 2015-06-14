@@ -2,10 +2,8 @@ package ToDoNotes.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 public class MySQLDAO {
 
@@ -40,7 +38,7 @@ public class MySQLDAO {
 		}
 	}
 
-	private static Connection getInstance() {
+	public static Connection getConnection() {
 		if (conn == null)
 			new MySQLDAO();
 		return conn;
