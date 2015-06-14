@@ -21,24 +21,18 @@ public class Note implements Serializable {
 	private String title;
 	private String description;
 	private Date date;
-	private boolean visible;
-	private boolean done;
 	
 	public Note(){}
 	
 	public Note(String title, String description, boolean visible, boolean done, Date date){
 		this.title = title;
 		this.description = description;
-		this.visible = visible;
-		this.done = done;
 		this.date = date;
 	}
 	@PostConstruct
 	private void postInit(){
 		this.title = "TestNote";
 		this.description = "Eduards liebligsfarbe ist Rosa :D, somit kann er alles was Rosa ist gebraucht. Macht mal Vorschläge!";
-		this.visible = true;
-		this.done = false;
 	}
 	
 	public String getTitle(){
@@ -55,22 +49,6 @@ public class Note implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
 	}
 
 	public long getId() {
