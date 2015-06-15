@@ -26,7 +26,7 @@
             </ul>
         </nav>
     </div>
-	<h:button value="#{Note.title}"></h:button>
-	<p><input type="submit" value="Absenden" /></p>
+    <h:commandButton value="Testen" action = "#{notesController.dbTest}"></h:commandButton>
+	<h:outputText value = "#{notesController.test}"></h:outputText>
 </h:body>
 </html>

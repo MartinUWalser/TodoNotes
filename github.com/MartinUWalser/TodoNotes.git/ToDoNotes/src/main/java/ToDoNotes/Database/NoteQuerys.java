@@ -24,7 +24,7 @@ public class NoteQuerys {
 			rS = pS.executeQuery();
 			
 			while(rS.next()){
-				if(rS.getInt(0) == 1){
+				if(rS.getInt(1) == 1){
 					test =true;
 				} ;
 			}
