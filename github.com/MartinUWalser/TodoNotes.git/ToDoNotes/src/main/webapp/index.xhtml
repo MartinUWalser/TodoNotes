@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet name="css/style.css"  />
+	<title>ToDo-Notes</title>
+</h:head>
+<h:body>
+	<div class="headbar">
+		<h1>Your ToDo-Notes</h1>
+	</div>
+	<h:outputText value="#{notesController.testDB()}"></h:outputText>
+	<div class="main">
+		<nav>
+			<ul class="fn-nav">
+				<li>
+					<a href="index.xhtml" id="index">Startseite</a>
+				</li>
+				<li>
+					<a href="new.xhtml" id="new">Neu</a>
+				</li>
+				<li>
+					<a href="group.xhtml" id="group">Gruppen</a>
+				</li>
+				<li>
+					<a href="done.xhtml" id="done">Abgeschlossen</a>
+				</li>
+				<li>
+					<a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="note-space">
+			<h:dataTable value="#{controller.getAllNotes()}" var="n" border="1">
+				<h:column>
+					<f:facet name="header">
+						Title
+					</f:facet>
+					#{n.title}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Date
+					</f:facet>
+					#{n.date}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Description
+					</f:facet>
+					#{n.description}
+				</h:column>
+			</h:dataTable>
+		</div>
+	</div>
+</h:body>
+</html>
