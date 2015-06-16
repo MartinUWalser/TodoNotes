@@ -26,17 +26,6 @@ public class Note implements Serializable {
 	
 	public Note(){}
 	
-	public Note(String title, String description, boolean visible, boolean done, Date date){
-		this.title = title;
-		this.description = description;
-		this.date = date;
-	}
-	@PostConstruct
-	private void postInit(){
-		this.title = "TestNote";
-		this.description = "Eduards liebligsfarbe ist Rosa :D, somit kann er alles was Rosa ist gebraucht. Macht mal Vorschläge!";
-	}
-	
 	public String getTitle(){
 		return this.title;
 	}

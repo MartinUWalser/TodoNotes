@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 import ToDoNotes.Database.NoteQuerys;
 
-@ManagedBean( name = "Group", eager = true)
+@ManagedBean( name = "notesList", eager = true)
 @RequestScoped
 @Entity
 public class NotesList implements Serializable {
@@ -19,7 +19,7 @@ public class NotesList implements Serializable {
 	private ArrayList<Note> notesList;
 	
 	public NotesList(){
-		this.notesList = NoteQuerys.getAllNotes();
+			this.notesList = NoteQuerys.getAllNotes();
 	}
 	
 	public NotesList(String name, ArrayList<Note> notesList){
