@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	    xmlns:f="http://java.sun.com/jsf/core"
-	    xmlns:h="http://java.sun.com/jsf/html">
-	 
-	<h:head>
-	<h:outputStylesheet name="css/styles.css"  />
-	    <title>ToDo-Notes</title>
-	</h:head>
-	<h:body>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:outputStylesheet name="css/style.css" />
+	<title>ToDo-Notes</title>
+</h:head>
+<h:body>
+	<div class="main">
+		<nav>
+			<ul class="fn-nav">
+				<li><a href="index.xhtml" id="index">Startseite</a></li>
+				<li><a href="new.xhtml" id="new">Neu</a></li>
+				<li><a href="group.xhtml" id="group">Gruppen</a></li>
+				<li><a href="done.xhtml" id="done">Abgeschlossen</a></li>
+				<li><a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="note-space">
+		<h:form>
+			<p>
+				<h:inputText value="#{Note.title}" p:placeholder="Titel" />
+			</p>
+			<p>
+				<h:inputText value="#{Note.description}"
+					p:placeholder="Beschreibung" />
+			</p>
+			<h:selectBooleanCheckbox value="#{Note.visible}" /> Visible
+            <h:selectBooleanCheckbox value="#{Note.done}" /> Done
         <p>
-            <label for="Name">Name:</label>
-            <input type="text" name="name" id="Name" size="51" />
-        </p>
-        <p>
-            <label for="Texteingabe">Bemerkung:</label>
-            <textarea name="text" cols="40" rows="10" id="Texteingabe"></textarea>
-        </p>
-        <p><input type="submit" value="Absenden" /></p>
-	</h:body>
-	</html>
+				<h:commandButton action="#{Note.newNote}" value="Absenden" />
+			</p>
+		</h:form>
+	</div>
+</h:body>
+</html>
