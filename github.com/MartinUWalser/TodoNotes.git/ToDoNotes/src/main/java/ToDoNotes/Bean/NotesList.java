@@ -2,24 +2,27 @@ package ToDoNotes.Bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.Entity;
 
+import ToDoNotes.Database.NoteQuerys;
+
 @ManagedBean( name = "Group", eager = true)
 @RequestScoped
 @Entity
-public class Group  implements Serializable {
+public class NotesList implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private ArrayList<Note> notesList;
 	
-	public Group(String name){
-		this.name = name;
+	public NotesList(){
+		this.notesList = NoteQuerys.getAllNotes();
 	}
 	
-	public Group(String name, ArrayList<Note> notesList){
+	public NotesList(String name, ArrayList<Note> notesList){
 		this.name = name;
 		this.notesList = notesList;
 	}

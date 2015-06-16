@@ -11,7 +11,6 @@
 	<div class="headbar">
 		<h1>Your ToDo-Notes</h1>
 	</div>
-	<h:outputText value="#{notesController.testDB()}"></h:outputText>
 	<div class="main">
 		<nav>
 			<ul class="fn-nav">
@@ -33,7 +32,7 @@
 			</ul>
 		</nav>
 		<div class="note-space">
-			<h:dataTable value="#{controller.getAllNotes()}" var="n" border="1">
+			<h:dataTable value="#{notesList.notesList}" var="n" border="1">
 				<h:column>
 					<f:facet name="header">
 						Title
