@@ -19,7 +19,7 @@ public class NotesList implements Serializable {
 	private ArrayList<Note> notesList;
 	
 	public NotesList(){
-			this.notesList = NoteQuerys.getAllNotes();
+		this.notesList = NoteQuerys.getAllNotes();
 	}
 	
 	public NotesList(String name, ArrayList<Note> notesList){

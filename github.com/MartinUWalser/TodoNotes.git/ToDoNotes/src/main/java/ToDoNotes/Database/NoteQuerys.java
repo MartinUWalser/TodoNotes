@@ -10,27 +10,26 @@ import ToDoNotes.Bean.Note;
 
 public class NoteQuerys {
 
-	public static void insertNote(int id, String name, String description,
+	public static void insertNote(String name, String description,
 			java.sql.Date sqlDate, boolean visible, boolean done) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "INSERT INTO Note (id, title, description, date, visible, done) VALUES (?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO Note (title, description, date, visible, done) VALUES (?, ?, ?, ?, ?);";
 
 		try {
 			// Query erstellen
 			pS = conn.prepareStatement(query);
-			pS.setInt(1, id);
-			pS.setString(2, name);
-			pS.setString(3, description);
-			pS.setDate(4, (java.sql.Date) sqlDate);
-			pS.setBoolean(5, visible);
-			pS.setBoolean(6, done);
+			pS.setString(1, name);
+			pS.setString(2, description);
+			pS.setDate(3, (java.sql.Date) sqlDate);
+			pS.setBoolean(4, visible);
+			pS.setBoolean(5, done);
 
 			// Ausführen
 			pS.execute();
 
 			pS.close();
-			conn.close();
+			//conn.close();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
