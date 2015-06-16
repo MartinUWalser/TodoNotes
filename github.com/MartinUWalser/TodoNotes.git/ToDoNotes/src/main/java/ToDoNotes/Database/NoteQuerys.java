@@ -38,7 +38,7 @@ public class NoteQuerys {
 		}
 	}
 
-	public static ArrayList<Note> getAllNote() {
+	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
