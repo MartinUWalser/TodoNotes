@@ -29,7 +29,6 @@ public class NoteQuerys {
 			pS.execute();
 
 			pS.close();
-			//conn.close();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,7 +68,6 @@ public class NoteQuerys {
 			try {
 				rS.close();
 				pS.close();
-				//conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
