@@ -1,6 +1,7 @@
 package ToDoNotes.Controller;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
@@ -16,30 +17,17 @@ import ToDoNotes.Database.NoteQuerys;
 public class Controller implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String name;
 	private ArrayList<Note> notesList;
+	private ArrayList<String> groupNames;
 	
 	public Controller(){
 		this.notesList = NoteQuerys.getAllNotes();
 	}
 	
-	public Controller(String name, ArrayList<Note> notesList){
-		this.name = name;
-		this.notesList = notesList;
-	}
-
 	public String deleteNote(Note note) {
 		NoteQuerys.removeNote(note);
 		notesList.remove(note);
 		return null;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setVisible(Note note) {
@@ -47,6 +35,7 @@ public class Controller implements Serializable {
 		NoteQuerys.setVisible(note);
 	}
 
+	
 	public ArrayList<Note> getNotesList() {
 		return notesList;
 	}
@@ -55,4 +44,11 @@ public class Controller implements Serializable {
 		this.notesList = notesList;
 	}
 
+	public ArrayList<String> getGroupNames() {
+		return groupNames;
+	}
+
+	public void setGroupNames(ArrayList<String> groupNames) {
+		this.groupNames = groupNames;
+	}
 }

@@ -33,27 +33,47 @@ public class NoteQuerys {
 		}
 	}
 
+	public static void setGroupRelation(Note note){
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query = "INSERT INTO isin ( visible, done) VALUES (?, ?, ?, ?, ?);";
+
+		try {
+			// Query erstellen
+			pS = conn.prepareStatement(query);
+			
+
+			// Ausführen
+			pS.execute();
+
+			pS.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void removeNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "DELETE FROM Note " +
-					"WHERE id = " + id;
+			String sql = "DELETE FROM Note " + "WHERE id = " + id;
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
-			try{
-					conn.close();
-			}catch(SQLException se){
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException se) {
 			}
-			try{
-				if(conn!=null)
+			try {
+				if (conn != null)
 					conn.close();
-			}catch(SQLException se){
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
@@ -64,25 +84,26 @@ public class NoteQuerys {
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "UPDATE Note SET visible = "+ note.isVisible()+" WHERE id = " + id;
+			String sql = "UPDATE Note SET visible = " + note.isVisible()
+					+ " WHERE id = " + id;
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
-			try{
+		} finally {
+			try {
 				conn.close();
-			}catch(SQLException se){
+			} catch (SQLException se) {
 			}
-			try{
-				if(conn!=null)
+			try {
+				if (conn != null)
 					conn.close();
-			}catch(SQLException se){
+			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
-		}
+	}
 
 	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
