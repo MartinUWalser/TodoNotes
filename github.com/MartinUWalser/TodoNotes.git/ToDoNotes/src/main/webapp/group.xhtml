@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
 
 <h:head>
 	<h:outputStylesheet name="css/style.css" />
@@ -15,7 +17,7 @@
 		<nav>
 			<ul class="fn-nav">
 				<li><a href="index.xhtml" id="index">Startseite</a></li>
-				<li><a href="new.xhtml" id="new">Neu</a></li>
+				<li><a href="newNote.xhtml" id="new">Neu</a></li>
 				<li><a href="group.xhtml" id="group">Gruppen</a></li>
 				<li><a href="done.xhtml" id="done">Abgeschlossen</a></li>
 				<li><a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
@@ -23,5 +25,15 @@
 			</ul>
 		</nav>
 	</div>
-</h:body>
+	<div class="group-space">
+        <h:form>
+            <p>
+                <h:inputText value="#{groupController.groupName.name}" p:placeholder="Groupname" />
+            </p>
+            <p>
+                <h:commandButton action="#{groupController.newGroup}" value="Absenden" />
+            </p>
+        </h:form>
+    </div>
+    </h:body>
 </html>

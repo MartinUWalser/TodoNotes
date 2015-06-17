@@ -1,22 +1,9 @@
 package ToDoNotes.Bean;
 
-import ToDoNotes.Database.NoteQuerys;
-
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.persistence.*;
+public class Note {
 
-@ManagedBean(name = "Note", eager = true)
-@RequestScoped
-@Entity
-public class Note implements Serializable {
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue
 	private long id;
 
 	private String title;
@@ -24,25 +11,19 @@ public class Note implements Serializable {
 	private Date date;
 	private boolean visible;
 	private boolean done;
+	private String groupName;
 
 	public Note() {
 	}
-
-	public String newNote() {
-		Date utilDate = new Date();
-		java.sql.Date date = new java.sql.Date(utilDate.getTime());
-		NoteQuerys.insertNote(this.title, this.description, date, this.visible,
-				this.done);
-		return "<success>";
-	}
-
-
 
 	public String getTitle() {
 		return this.title;
 	}
 
-	public void setId(long id) {this.id = id;}
+	public void setId(long id) {
+		this.id = id;
+		}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -81,6 +62,14 @@ public class Note implements Serializable {
 
 	public void setDone(boolean done) {
 		this.done = done;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 }
