@@ -35,7 +35,7 @@ public class GroupQuerys {
 		PreparedStatement pS = null;
 		ResultSet rS = null;
 
-		String query = "SELECT DISTINCT name FROM `Group`";
+		String query = "SELECT * FROM `Group`";
 
 		try {
 			// Query erstellen
