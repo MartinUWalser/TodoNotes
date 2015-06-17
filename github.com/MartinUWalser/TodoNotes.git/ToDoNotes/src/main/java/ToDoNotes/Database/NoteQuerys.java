@@ -56,7 +56,34 @@ public class NoteQuerys {
 			}catch(SQLException se){
 				se.printStackTrace();
 			}
-	}}
+		}
+	}
+
+	public static void setVisible(Note note) {
+		Connection conn = MySQLDAO.getConnection();
+		long id = note.getId();
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "UPDATE Note SET visible = true WHERE id = " + id;
+			stmt.executeUpdate(sql);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try{
+				conn.close();
+			}catch(SQLException se){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		}
+
 	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();

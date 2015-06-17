@@ -52,11 +52,25 @@
                     </f:facet>
                     #{n.description}
                 </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Visible
+                    </f:facet>
+                    #{n.visible}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Done
+                    </f:facet>
+                    #{n.done}
+                </h:column>
 				<h:column>
 					<f:facet name="header">
 						Action
 					</f:facet>
-					<h:commandLink value="Delete" action="#{notesList.deleteNote(n)}" />
+					<h:commandButton value="Delete" action="#{notesList.deleteNote(n)}" />
+                    <h:commandButton value="Invisible" action="#{n.setVisible(true)}" />
+                    <h:commandButton value="Done" action="#{n.setDone(true)}" />
 				</h:column>
             </h:dataTable>
 			</h:form>
