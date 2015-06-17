@@ -102,6 +102,20 @@ public class NoteQuerys {
 			se.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
+<<<<<<< HEAD
+=======
+		} finally{
+			try{
+					conn.close();
+			}catch(SQLException se){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+>>>>>>> remotes/origin/myOwnMartin
 		}
 	}
 
@@ -110,12 +124,17 @@ public class NoteQuerys {
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
+<<<<<<< HEAD
 			String sql = "UPDATE Note SET visible = "+ note.isVisible()+" WHERE id = " + id;
+=======
+			String sql = "UPDATE Note SET visible = true WHERE id = " + id;
+>>>>>>> remotes/origin/myOwnMartin
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
+<<<<<<< HEAD
 		}
 		}
 
@@ -133,6 +152,22 @@ public class NoteQuerys {
 		}
 	}
 
+=======
+		} finally{
+			try{
+				conn.close();
+			}catch(SQLException se){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		}
+
+>>>>>>> remotes/origin/myOwnMartin
 	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();
