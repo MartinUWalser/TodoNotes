@@ -142,20 +142,14 @@ public class NoteQuerys {
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
-<<<<<<< .merge_file_a06148
 
-			String sql = "UPDATE Note SET visible = "+ note.isVisible()+" WHERE id = " + id;
-=======
 			String sql = "UPDATE Note SET visible = " + note.isVisible()
 					+ " WHERE id = " + id;
->>>>>>> .merge_file_a06440
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-<<<<<<< .merge_file_a06148
-=======
 		} finally {
 			try {
 				conn.close();
@@ -167,7 +161,6 @@ public class NoteQuerys {
 			} catch (SQLException se) {
 				se.printStackTrace();
 			}
->>>>>>> .merge_file_a06440
 		}
 	}
 
