@@ -27,6 +27,11 @@ public class NotesList implements Serializable {
 		this.notesList = notesList;
 	}
 
+	public String deleteNote(Note note) {
+		notesList.remove(note);
+		return null;
+	}
+
 	public String getName() {
 		return name;
 	}

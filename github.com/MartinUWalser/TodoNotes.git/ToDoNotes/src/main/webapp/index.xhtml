@@ -32,6 +32,7 @@
             </ul>
         </nav>
         <div class="note-space">
+			<h:form>
             <h:dataTable value="#{notesList.notesList}" var="n" border="1">
                 <h:column>
                     <f:facet name="header">
@@ -51,8 +52,15 @@
                     </f:facet>
                     #{n.description}
                 </h:column>
+				<h:column>
+					<f:facet name="header">
+						Action
+					</f:facet>
+					<h:commandLink value="Delete" action="#{notesList.deleteNote(n)}" />
+				</h:column>
             </h:dataTable>
-        </div>
+			</h:form>
+		</div>
     </div>
 </h:body>
 </html>
