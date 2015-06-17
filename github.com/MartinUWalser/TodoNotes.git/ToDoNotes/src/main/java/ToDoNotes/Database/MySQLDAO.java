@@ -39,8 +39,12 @@ public class MySQLDAO {
 	}
 	
 	public static Connection getConnection() {
-		if (conn == null)
-			new MySQLDAO();
+		try {
+			if (conn == null || conn.isClosed())
+				new MySQLDAO();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return conn;
 	}
 }
