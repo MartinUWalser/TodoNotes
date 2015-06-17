@@ -69,18 +69,13 @@
 					<f:facet name="header">
 						Toggle Action
 					</f:facet>
-<<<<<<< HEAD
 					<h:commandButton value="Delete" action="#{IndexController.deleteNote(n)}" />
                     <h:commandButton value="(In)Visible" action="#{IndexController.setVisible(n)}" />
                     <h:commandButton value="Done" action="#{IndexController.setDone(n)}" />
                     <h:commandButton value="Edit" action="edit.xhtml">
                         <f:param name="id" value="#{n.id}" />
                     </h:commandButton>
-=======
-					<h:commandButton value="Delete" action="#{notesList.deleteNote(n)}" />
-                    <h:commandButton value="Invisible" action="#{n.setVisible(true)}" />
-                    <h:commandButton value="Done" action="#{n.setDone(true)}" />
->>>>>>> remotes/origin/myOwnMartin
+
 				</h:column>
             </h:dataTable>
 			</h:form>
