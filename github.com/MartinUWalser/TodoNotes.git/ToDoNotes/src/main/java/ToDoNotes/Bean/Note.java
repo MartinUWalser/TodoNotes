@@ -36,6 +36,7 @@ public class Note implements Serializable {
 		return "<success>";
 	}
 
+
 	public String getTitle() {
 		return this.title;
 	}

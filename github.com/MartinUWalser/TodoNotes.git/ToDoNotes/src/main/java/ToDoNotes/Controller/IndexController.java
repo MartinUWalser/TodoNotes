@@ -10,21 +10,20 @@ import javax.persistence.Entity;
 import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQuerys;
 
-@ManagedBean( name = "controller", eager = true)
+@ManagedBean( name = "IndexController", eager = true)
 @RequestScoped
 @Entity
-public class Controller implements Serializable {
+public class IndexController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private ArrayList<Note> notesList;
 	
-	public Controller(){
+	public IndexController(){
 		this.notesList = NoteQuerys.getAllNotes();
 	}
 	
-	public Controller(String name, ArrayList<Note> notesList){
-		this.name = name;
+	public IndexController(ArrayList<Note> notesList){
 		this.notesList = notesList;
 	}
 
@@ -45,6 +44,11 @@ public class Controller implements Serializable {
 	public void setVisible(Note note) {
 		note.setVisible(!note.isVisible());
 		NoteQuerys.setVisible(note);
+	}
+
+	public void setDone(Note note) {
+		note.setDone(!note.isDone());
+		NoteQuerys.setDone(note);
 	}
 
 	public ArrayList<Note> getNotesList() {
