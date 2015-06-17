@@ -1,5 +1,7 @@
 package ToDoNotes.Bean;
 
+import ToDoNotes.Database.NoteQuerys;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,8 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 
-
-@ManagedBean( name = "Note", eager = true)
+@ManagedBean(name = "Note", eager = true)
 @RequestScoped
 @Entity
 public class Note implements Serializable {
@@ -23,24 +24,22 @@ public class Note implements Serializable {
 	private Date date;
 	private boolean visible;
 	private boolean done;
-	
-	public Note(){}
-	
-	public Note(String title, String description, boolean visible, boolean done, Date date){
-		this.title = title;
-		this.description = description;
-		this.date = date;
+
+	public Note() {
 	}
-	@PostConstruct
-	private void postInit(){
-		this.title = "TestNote";
-		this.description = "Eduards liebligsfarbe ist Rosa :D, somit kann er alles was Rosa ist gebraucht. Macht mal Vorschläge!";
+
+	public String newNote() {
+		Date utilDate = new Date();
+		java.sql.Date date = new java.sql.Date(utilDate.getTime());
+		NoteQuerys.insertNote(this.title, this.description, date, this.visible,
+				this.done);
+		return "<success>";
 	}
-	
-	public String getTitle(){
+
+	public String getTitle() {
 		return this.title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -61,7 +60,7 @@ public class Note implements Serializable {
 		this.date = date;
 	}
 
-	public Date getDate(){
+	public Date getDate() {
 		return this.date;
 	}
 
@@ -80,5 +79,5 @@ public class Note implements Serializable {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
-	
+
 }

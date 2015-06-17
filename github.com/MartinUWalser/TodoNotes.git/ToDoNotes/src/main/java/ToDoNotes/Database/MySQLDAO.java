@@ -37,7 +37,7 @@ public class MySQLDAO {
 			System.out.println("Connect nicht moeglich");
 		}
 	}
-
+	
 	public static Connection getConnection() {
 		if (conn == null)
 			new MySQLDAO();

@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 import ToDoNotes.Database.NoteQuerys;
 
-@ManagedBean( name = "Group", eager = true)
+@ManagedBean( name = "notesList", eager = true)
 @RequestScoped
 @Entity
 public class NotesList implements Serializable {
