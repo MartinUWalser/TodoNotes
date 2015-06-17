@@ -64,7 +64,7 @@ public class NoteQuerys {
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "UPDATE Note SET visible = true WHERE id = " + id;
+			String sql = "UPDATE Note SET visible = "+ note.isVisible()+" WHERE id = " + id;
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();

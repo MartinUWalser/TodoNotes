@@ -73,8 +73,7 @@ public class Note implements Serializable {
 	}
 
 	public void setVisible(boolean visible) {
-	//	NoteQuerys.setVisible(this);
-		this.visible = visible;
+			this.visible = visible;
 	}
 
 	public boolean isDone() {
