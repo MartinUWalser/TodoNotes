@@ -40,6 +40,7 @@ public class Note implements Serializable {
 		return this.title;
 	}
 
+	public void setId(long id) {this.id = id;}
 	public void setTitle(String title) {
 		this.title = title;
 	}

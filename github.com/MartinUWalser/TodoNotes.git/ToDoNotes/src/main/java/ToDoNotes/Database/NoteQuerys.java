@@ -1,9 +1,6 @@
 package ToDoNotes.Database;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 
 import ToDoNotes.Bean.Note;
@@ -36,6 +33,30 @@ public class NoteQuerys {
 		}
 	}
 
+	public static void removeNote(Note note) {
+		Connection conn = MySQLDAO.getConnection();
+		long id = note.getId();
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "DELETE FROM Note " +
+					"WHERE id = " + id;
+			stmt.executeUpdate(sql);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try{
+					conn.close();
+			}catch(SQLException se){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+	}}
 	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();
@@ -53,6 +74,7 @@ public class NoteQuerys {
 
 			while (rS.next()) {
 				Note note = new Note();
+				note.setId(rS.getLong("id"));
 				note.setTitle(rS.getString("title"));
 				note.setDate(rS.getDate("date"));
 				note.setDescription(rS.getString("description"));

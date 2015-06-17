@@ -28,6 +28,7 @@ public class NotesList implements Serializable {
 	}
 
 	public String deleteNote(Note note) {
+		NoteQuerys.removeNote(note);
 		notesList.remove(note);
 		return null;
 	}
