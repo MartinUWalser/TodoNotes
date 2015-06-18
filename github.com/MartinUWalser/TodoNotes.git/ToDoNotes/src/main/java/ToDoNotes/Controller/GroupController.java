@@ -15,6 +15,7 @@ import ToDoNotes.Database.GroupQuerys;
 public class GroupController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private String name;
 	private Group groupName;
 	private ArrayList<Group> groupNamesList; 
 
@@ -28,6 +29,7 @@ public class GroupController implements Serializable {
 
 	@PostConstruct
 	public void initd(){
+		this.name ="";;
 		this.groupName = new Group();
 		this.groupNamesList = GroupQuerys.getAllGroupNames();
 	}
@@ -46,6 +48,14 @@ public class GroupController implements Serializable {
 
 	public void setGroupName(Group groupName) {
 		this.groupName = groupName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

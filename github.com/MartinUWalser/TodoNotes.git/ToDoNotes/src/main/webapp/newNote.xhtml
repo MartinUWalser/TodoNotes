@@ -34,8 +34,8 @@
 					p:placeholder="Beschreibung" />
 			</p>
 			<p>
-                <h:selectOneMenu value="#{newController.groupNamesList}">
-                   <f:selectItems value="#{newController.groupNamesList}" name="group" var="g" itemLabel="#{g.name}" itemValue="#{g}"></f:selectItems>
+                <h:selectOneMenu value="#{newController.groupName}" name="group">
+                   <f:selectItems value="#{newController.groupNamesList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
 				</h:selectOneMenu>
             </p>
 			<h:selectBooleanCheckbox value="#{newController.note.visible}" /> Visible

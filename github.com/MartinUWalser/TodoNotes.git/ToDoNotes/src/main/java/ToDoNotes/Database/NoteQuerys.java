@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ToDoNotes.Bean.Note;
+
 import com.mysql.jdbc.*;
 
 public class NoteQuerys {
@@ -44,27 +46,40 @@ public class NoteQuerys {
 		return note;
 	}
 
-	public static void insertNote(String name, String description,
-								  java.sql.Date sqlDate, boolean visible, boolean done) {
+	public static void insertNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
+		Date utilDate = new Date();
+		java.sql.Date date = new java.sql.Date(utilDate.getTime());
 		PreparedStatement pS = null;
+		ResultSet rS = null;
 		String query = "INSERT INTO Note (title, description, date, visible, done) VALUES (?, ?, ?, ?, ?);";
 
 		try {
 			// Query erstellen
-			pS = conn.prepareStatement(query);
-			pS.setString(1, name);
-			pS.setString(2, description);
-			pS.setDate(3, (java.sql.Date) sqlDate);
-			pS.setBoolean(4, visible);
-			pS.setBoolean(5, done);
+			pS = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pS.setString(1, note.getTitle());
+			pS.setString(2, note.getDescription());
+			pS.setDate(3, (date) );
+			pS.setBoolean(4, note.isVisible());
+			pS.setBoolean(5, note.isDone());
 
 			// Ausführen
 			pS.execute();
-			pS.close();
-
+			
+			rS = pS.getGeneratedKeys();
+			if(rS.next()) {
+				note.setId(rS.getLong(1));
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				pS.close();
+				rS.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
