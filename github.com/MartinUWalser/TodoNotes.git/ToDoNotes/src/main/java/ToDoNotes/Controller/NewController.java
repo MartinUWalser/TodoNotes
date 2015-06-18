@@ -35,7 +35,7 @@ public class NewController implements Serializable {
 	
 
 	@PostConstruct
-	public void initd(){
+	public void init(){
 		Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		this.groupName = params.get("group");
