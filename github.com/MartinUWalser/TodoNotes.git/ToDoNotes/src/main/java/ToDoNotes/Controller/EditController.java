@@ -32,7 +32,7 @@ public class EditController implements Serializable {
         Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String idString = params.get("id");
-        String groupName = params.get("group");
+        groupName = params.get("group");
         this.groupNamesList = GroupQuerys.getAllGroupNames();
         if (!idString.equals("") || !idString.equals(null)) {
            try {
@@ -58,7 +58,7 @@ public class EditController implements Serializable {
 
     public String saveNote() {
         NoteQuerys.updateNote(note);
-        GroupQuerys.setIsInRelation(this.note, new Group(groupName));
+        GroupQuerys.setIsInRelation(this.note, groupName);
         return "<success>";
     }
 
