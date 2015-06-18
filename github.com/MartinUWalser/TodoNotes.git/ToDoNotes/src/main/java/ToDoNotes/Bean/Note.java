@@ -13,6 +13,7 @@ public class Note {
 	private boolean done;
 	private String groupName;
 
+
 	public Note() {
 	}
 

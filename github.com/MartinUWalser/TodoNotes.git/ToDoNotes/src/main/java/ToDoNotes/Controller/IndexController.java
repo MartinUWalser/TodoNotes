@@ -32,7 +32,11 @@ public class IndexController implements Serializable {
 		notesList.remove(note);
 		return null;
 	}
-
+	
+	public void setGroupName(long id) {
+		//TODO
+	}
+	
 	public String getName() {
 		return name;
 	}

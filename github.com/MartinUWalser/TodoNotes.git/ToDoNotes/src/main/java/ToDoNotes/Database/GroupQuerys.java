@@ -29,6 +29,28 @@ public class GroupQuerys {
 		}
 	}
 	
+	public static void setIsInRelation(Note note, String groupName){
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query = "INSERT INTO `isin` (note_id, groupname) VALUES (?, ?);";
+
+		try {
+			// Query erstellen
+			pS = conn.prepareStatement(query);
+			pS.setLong(1, note.getId());
+			pS.setString(2, groupName);
+
+			// Ausführen
+			pS.execute();
+
+			pS.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} 
+	
 	public static ArrayList<Group> getAllGroupNames() {
 		ArrayList<Group> groupNames = new ArrayList<Group>();
 		Connection conn = MySQLDAO.getConnection();
