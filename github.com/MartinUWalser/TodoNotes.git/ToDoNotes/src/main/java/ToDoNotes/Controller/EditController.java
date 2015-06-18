@@ -58,7 +58,7 @@ public class EditController implements Serializable {
 
     public String saveNote() {
         NoteQuerys.updateNote(note);
-        GroupQuerys.setIsInRelation(this.note, groupName);
+        GroupQuerys.setIsInRelation(this.note, this.groupName);
         return "<success>";
     }
 

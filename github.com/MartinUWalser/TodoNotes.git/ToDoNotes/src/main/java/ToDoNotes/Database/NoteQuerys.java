@@ -199,6 +199,7 @@ public class NoteQuerys {
 		PreparedStatement pS = null;
 		ResultSet rS = null;
 
+
 		String query = "SELECT * FROM Note";
 
 		try {
@@ -216,6 +217,8 @@ public class NoteQuerys {
 				note.setDescription(rS.getString("description"));
 				note.setVisible(rS.getBoolean("visible"));
 				note.setDone(rS.getBoolean("done"));
+
+				note.setGroupName(getGroupName(note));
 				noteList.add(note);
 			}
 
@@ -230,5 +233,31 @@ public class NoteQuerys {
 			}
 		}
 		return noteList;
+	}
+
+	private static String getGroupName (Note note) {
+		Connection groupConn = MySQLDAO.getConnection();
+		PreparedStatement groupPS = null;
+		ResultSet groupRS = null;
+		String name;
+		String groupQuery = "SELECT * FROM isin WHERE note_id = ?";
+		try {
+			groupPS = groupConn.prepareStatement(groupQuery);
+			groupPS.setLong(1, note.getId());
+			groupRS = groupPS.executeQuery();
+			if (!groupRS.getString("groupname").equals("") && !groupRS.getString("groupname").equals(null)) {
+				return groupRS.getString("groupname");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				groupPS.close();
+				groupRS.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		 return null;
 	}
 }

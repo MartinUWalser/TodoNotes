@@ -35,9 +35,10 @@
 			<p>
 				<h:outputText value="Current group: #{EditController.groupName}"></h:outputText>
 			</p>
-			<p>	<h:selectOneMenu value="#{EditController.groupName}">
-					<f:selectItems value="#{EditController.groupNamesList}" name="group" var="g"
-								   itemLabel="#{g.name}" itemValue="#{g.name}">
+			<p>	<h:selectOneMenu value="#{EditController.note.groupName}" name="group">
+				<p.
+					<f:selectItems value="#{EditController.groupNamesList}"  var="g"
+								   itemLabel="#{note.groupName}" itemValue="#{note.groupName}">
 					</f:selectItems>
 				</h:selectOneMenu>
 			</p>

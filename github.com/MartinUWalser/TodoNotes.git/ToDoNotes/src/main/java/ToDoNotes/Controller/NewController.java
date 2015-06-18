@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import ToDoNotes.Bean.Group;
@@ -16,7 +17,7 @@ import ToDoNotes.Database.GroupQuerys;
 import ToDoNotes.Database.NoteQuerys;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class NewController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

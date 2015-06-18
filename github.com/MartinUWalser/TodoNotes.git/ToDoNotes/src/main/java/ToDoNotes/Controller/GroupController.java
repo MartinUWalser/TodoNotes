@@ -6,20 +6,22 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Database.GroupQuerys;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class GroupController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private Group groupName;
-	private ArrayList<Group> groupNamesList; 
+	private ArrayList<Group> groupNamesList;
 
-	public GroupController() {}
+	@PostConstruct
+	public void init() {}
 	
 	public String newGroup() {
 		GroupQuerys.insertGroup(groupName);
