@@ -7,12 +7,10 @@ import ToDoNotes.Database.NoteQuerys;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,19 +23,18 @@ public class EditController implements Serializable {
     private long id;
     private Note note;
     private ArrayList<Group> groupNamesList;
-    private String groupName;
 
     @PostConstruct
     private void init(){
         Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String idString = params.get("id");
-        groupName = params.get("group");
         this.groupNamesList = GroupQuerys.getAllGroupNames();
         if (!idString.equals("") || !idString.equals(null)) {
            try {
                id = Integer.parseInt(idString);
                note = NoteQuerys.getNote(id);
+               NoteQuerys.setGroup(note);
            } catch (Exception e) {
                 System.out.println("Fehler beim parse.");
             }
@@ -58,15 +55,11 @@ public class EditController implements Serializable {
 
     public String saveNote() {
         NoteQuerys.updateNote(note);
-        GroupQuerys.setIsInRelation(this.note, this.groupName);
+        GroupQuerys.updateIsInRelation(this.note, note.getGroupName());
         return "<success>";
     }
 
     public ArrayList<Group> getGroupNamesList() {
         return groupNamesList;
-    }
-
-    public String getGroupName() {
-        return groupName;
     }
 }

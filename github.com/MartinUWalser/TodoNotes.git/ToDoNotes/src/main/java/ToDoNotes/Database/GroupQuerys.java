@@ -28,11 +28,69 @@ public class GroupQuerys {
 			e.printStackTrace();
 		}
 	}
-	
+
+	private static boolean hasGroup(Note note) {
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query = "SELECT * FROM isin WHERE note_id = ?";
+		int i = 0;
+		try {
+			pS = conn.prepareStatement(query);
+			pS.setLong(1, note.getId());
+			ResultSet rS = pS.executeQuery();
+
+			while(rS.next() && i < 1) {
+				++i;
+			}
+
+
+			// Ausführen
+			pS.execute();
+
+			pS.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if(i < 1) {
+			return false;
+		}
+		return true;
+	}
+
+	public static void updateIsInRelation(Note note, String groupName) {
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query;
+		if(hasGroup(note)) {
+		query = "UPDATE isin SET groupname = ? WHERE note_id = ? ";
+		} else {
+		query =	"INSERT INTO isin (groupname, note_id) VALUES (?, ?);";
+		}
+
+		try {
+			// Query erstellen
+			pS = conn.prepareStatement(query);
+			pS.setString(1, groupName);
+			pS.setLong(2, note.getId());
+
+			// Ausführen
+			pS.execute();
+
+			pS.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+	}
+
 	public static void setIsInRelation(Note note, String groupName){
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "INSERT INTO `isin` (note_id, groupname) VALUES (?, ?);";
+		String query = "INSERT INTO isin (note_id, groupname) VALUES (?, ?);";
 
 		try {
 			// Query erstellen
