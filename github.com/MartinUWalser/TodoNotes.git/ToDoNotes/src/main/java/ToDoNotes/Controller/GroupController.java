@@ -31,7 +31,7 @@ public class GroupController implements Serializable {
 
 	@PostConstruct
 	public void initd(){
-		this.name ="";;
+		this.name ="";
 		this.groupName = new Group();
 		this.groupNamesList = GroupQuerys.getAllGroupNames();
 	}
