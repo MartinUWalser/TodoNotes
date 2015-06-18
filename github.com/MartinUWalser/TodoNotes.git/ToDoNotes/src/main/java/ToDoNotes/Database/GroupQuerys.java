@@ -56,7 +56,9 @@ public class GroupQuerys {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		ResultSet rS = null;
-
+		Group empty = new Group();
+		empty.setName("");
+		groupNames.add(empty);
 		String query = "SELECT * FROM `Group`";
 
 		try {
