@@ -18,26 +18,27 @@ import ToDoNotes.Database.NoteQuerys;
 @ManagedBean
 @RequestScoped
 public class NewController implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	String groupName;
 	private Note note;
-	private ArrayList<Group> groupNamesList; 
+	private ArrayList<Group> groupNamesList;
 
-	public NewController(){
+	public NewController() {
 	}
-	
+
 	public String newNote() {
 		NoteQuerys.insertNote(this.note);
-		GroupQuerys.setIsInRelation(this.note, this.groupName);
+		if(!this.groupName.equals("")){
+			GroupQuerys.setIsInRelation(this.note, this.groupName);
+			}
 		return "<success>";
 	}
-	
 
 	@PostConstruct
-	public void initd(){
-		Map<String,String> params =
-                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+	public void initd() {
+		Map<String, String> params = FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap();
 		this.groupName = params.get("group");
 		this.note = new Note();
 		this.groupNamesList = GroupQuerys.getAllGroupNames();
@@ -50,7 +51,7 @@ public class NewController implements Serializable {
 	public void setGroupNamesList(ArrayList<Group> groupNamesList) {
 		this.groupNamesList = groupNamesList;
 	}
-	
+
 	public Note getNote() {
 		return note;
 	}
@@ -58,7 +59,7 @@ public class NewController implements Serializable {
 	public void setNote(Note note) {
 		this.note = note;
 	}
-	
+
 	public String getGroupName() {
 		return groupName;
 	}
