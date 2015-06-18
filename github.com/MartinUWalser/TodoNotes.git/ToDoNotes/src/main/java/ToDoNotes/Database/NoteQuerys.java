@@ -104,27 +104,6 @@ public class NoteQuerys {
 			e.printStackTrace();
 		}
 	}
-
-	public static void setGroupRelation(Note note){
-		Connection conn = MySQLDAO.getConnection();
-		PreparedStatement pS = null;
-		String query = "INSERT INTO isin ( visible, done) VALUES (?, ?, ?, ?, ?);";
-
-		try {
-			// Query erstellen
-			pS = conn.prepareStatement(query);
-			
-
-			// Ausführen
-			pS.execute();
-
-			pS.close();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	public static void removeNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
@@ -198,8 +177,6 @@ public class NoteQuerys {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		ResultSet rS = null;
-
-
 		String query = "SELECT * FROM Note";
 
 		try {
@@ -217,8 +194,7 @@ public class NoteQuerys {
 				note.setDescription(rS.getString("description"));
 				note.setVisible(rS.getBoolean("visible"));
 				note.setDone(rS.getBoolean("done"));
-
-				note.setGroupName(getGroupName(note));
+				setGroup(note);
 				noteList.add(note);
 			}
 
@@ -235,19 +211,17 @@ public class NoteQuerys {
 		return noteList;
 	}
 
-	private static String getGroupName (Note note) {
+	public static void setGroup (Note note) {
 		Connection groupConn = MySQLDAO.getConnection();
 		PreparedStatement groupPS = null;
 		ResultSet groupRS = null;
-		String name;
 		String groupQuery = "SELECT * FROM isin WHERE note_id = ?";
 		try {
 			groupPS = groupConn.prepareStatement(groupQuery);
 			groupPS.setLong(1, note.getId());
 			groupRS = groupPS.executeQuery();
-			if (!groupRS.getString("groupname").equals("") && !groupRS.getString("groupname").equals(null)) {
-				return groupRS.getString("groupname");
-			}
+			while(groupRS.next())
+				note.setGroupName(groupRS.getString("groupname"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -258,6 +232,5 @@ public class NoteQuerys {
 				e.printStackTrace();
 			}
 		}
-		 return null;
 	}
 }

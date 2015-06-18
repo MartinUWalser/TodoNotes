@@ -33,6 +33,11 @@
 			<h:selectBooleanCheckbox value="#{EditController.note.visible}" /> Visible
 			<h:selectBooleanCheckbox value="#{EditController.note.done}" /> Done
 			<p>
+				<h:selectOneMenu value="#{EditController.note.groupName}" name="group">
+					<f:selectItems value="#{EditController.groupNamesList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+				</h:selectOneMenu>
+			</p>
+			<p>
 				<h:commandButton action="#{EditController.saveNote}" value="Absenden" />
 			</p>
 		</h:form>
