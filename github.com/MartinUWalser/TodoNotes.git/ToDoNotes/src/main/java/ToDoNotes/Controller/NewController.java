@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import ToDoNotes.Bean.Group;
@@ -36,7 +35,7 @@ public class NewController implements Serializable {
 	
 
 	@PostConstruct
-	public void init(){
+	public void initd(){
 		Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		this.groupName = params.get("group");

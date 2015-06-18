@@ -12,11 +12,11 @@
 	<div class="main">
 		<nav>
 			<ul class="fn-nav">
-				<li><a href="index.xhtml" id="index">Startseite</a></li>
-				<li><a href="newNote.xhtml" id="new">Neu</a></li>
-				<li><a href="group.xhtml" id="group">Gruppen</a></li>
-				<li><a href="done.xhtml" id="done">Abgeschlossen</a></li>
-				<li><a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+				<li><a href="index.xhtml" id="index">Home</a></li>
+                <li><a href="newNote.xhtml" id="new">New note</a></li>
+                <li><a href="group.xhtml" id="group">Manage groups</a></li>
+                <li><a href="done.xhtml" id="done">Finished notes</a></li>
+                <li><a href="notvisible.xhtml" id="notvisible">Hidden notes</a>
 				</li>
 			</ul>
 		</nav>
@@ -32,16 +32,6 @@
 			</p>
 			<h:selectBooleanCheckbox value="#{EditController.note.visible}" /> Visible
 			<h:selectBooleanCheckbox value="#{EditController.note.done}" /> Done
-			<p>
-				<h:outputText value="Current group: #{EditController.groupName}"></h:outputText>
-			</p>
-			<p>	<h:selectOneMenu value="#{EditController.note.groupName}" name="group">
-				<p.
-					<f:selectItems value="#{EditController.groupNamesList}"  var="g"
-								   itemLabel="#{note.groupName}" itemValue="#{note.groupName}">
-					</f:selectItems>
-				</h:selectOneMenu>
-			</p>
 			<p>
 				<h:commandButton action="#{EditController.saveNote}" value="Absenden" />
 			</p>
