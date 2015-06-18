@@ -8,15 +8,15 @@ import ToDoNotes.Bean.Note;
 
 public class GroupQuerys {
 
-	public static void insertGroup(Group name) {
+	public static void insertGroup(Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "INSERT INTO `Group` (name) VALUES (?);";
+		String query = "INSERT INTO Group (name) VALUES (?);";
 
 		try {
 			// Query erstellen
 			pS = conn.prepareStatement(query);
-			pS.setString(1, name.getName());
+			pS.setString(1, group.getName());
 
 			// Ausführen
 			pS.execute();
