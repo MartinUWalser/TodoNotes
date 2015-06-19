@@ -18,6 +18,7 @@ public class GroupController implements Serializable {
 	
 	private Group group;
 	private ArrayList<Group> groupList;
+    private ArrayList<Group> shortList;
 
 	
 	public String newGroup() {
@@ -35,6 +36,9 @@ public class GroupController implements Serializable {
 	public void init(){
 		this.group = new Group();
 		this.groupList = GroupQuerys.getAllGroups();
+        ArrayList<Group> tempshortList = GroupQuerys.getAllGroups();
+        tempshortList.remove(0);
+        this.shortList = tempshortList;
 	}
 
 	public String deleteGroup(Group group) {
@@ -64,6 +68,14 @@ public class GroupController implements Serializable {
 	public void setGroupList(ArrayList<Group> groups) {
 		this.groupList = groups;
 	}
+
+    public ArrayList<Group> getShortList() {
+        return shortList;
+    }
+
+    public void setShortList(ArrayList<Group> groups) {
+        this.shortList = groups;
+    }
 	
 	public Group getGroup() {
 		return this.group;
