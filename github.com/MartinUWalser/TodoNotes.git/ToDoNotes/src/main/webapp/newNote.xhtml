@@ -15,11 +15,11 @@
 	<div class="main">
 		<nav>
 			<ul class="fn-nav">
-				<li><a href="index.xhtml" id="index">Startseite</a></li>
-				<li><a href="newNote.xhtml" id="new">Neu</a></li>
-				<li><a href="group.xhtml" id="group">Gruppen</a></li>
-				<li><a href="done.xhtml" id="done">Abgeschlossen</a></li>
-				<li><a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+			<li><a href="index.xhtml" id="index">Home</a></li>
+                <li><a href="newNote.xhtml" id="new">New note</a></li>
+                <li><a href="group.xhtml" id="group">Manage groups</a></li>
+                <li><a href="done.xhtml" id="done">Finished notes</a></li>
+                <li><a href="notvisible.xhtml" id="notvisible">Hidden notes</a>
 				</li>
 			</ul>
 		</nav>
@@ -27,21 +27,21 @@
 	<div class="note-space">
 		<h:form>
 			<p>
-				<h:inputText value="#{newController.note.title}" p:placeholder="Titel" />
+				<h:inputText value="#{newController.note.title}" p:placeholder="Title" />
 			</p>
 			<p>
 				<h:inputText value="#{newController.note.description}"
-					p:placeholder="Beschreibung" />
+					p:placeholder="ToDo description" />
 			</p>
 			<p>
-                <h:selectOneMenu value="#{newController.groupName}" name="group">
-                   <f:selectItems value="#{newController.groupNamesList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+                <h:selectOneMenu value="#{newController.note.groupName}" name="group">
+                   <f:selectItems value="#{newController.groupList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
 				</h:selectOneMenu>
             </p>
 			<h:selectBooleanCheckbox value="#{newController.note.visible}" /> Visible
             <h:selectBooleanCheckbox value="#{newController.note.done}" /> Done
         <p>
-				<h:commandButton action="#{newController.newNote}" value="Absenden" />
+				<h:commandButton action="#{newController.newNote}" value="Send" />
 			</p>
 		</h:form>
 	</div>

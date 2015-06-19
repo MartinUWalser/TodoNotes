@@ -16,11 +16,11 @@
 	<div class="main">
 		<nav>
 			<ul class="fn-nav">
-				<li><a href="index.xhtml" id="index">Startseite</a></li>
-				<li><a href="newNote.xhtml" id="new">Neu</a></li>
-				<li><a href="group.xhtml" id="group">Gruppen</a></li>
-				<li><a href="done.xhtml" id="done">Abgeschlossen</a></li>
-				<li><a href="notvisible.xhtml" id="notvisible">Ausgeblendet</a>
+				<li><a href="index.xhtml" id="index">Home</a></li>
+                <li><a href="newNote.xhtml" id="new">New note</a></li>
+                <li><a href="group.xhtml" id="group">Manage groups</a></li>
+                <li><a href="done.xhtml" id="done">Finished notes</a></li>
+                <li><a href="notvisible.xhtml" id="notvisible">Hidden notes</a>
 				</li>
 			</ul>
 		</nav>
@@ -28,12 +28,30 @@
 	<div class="note-space">
         <h:form>
             <p>
-                <h:inputText value="#{groupController.groupName.name}" p:placeholder="Groupname" />
+                <h:inputText value="#{groupController.group.name}" p:placeholder="Groupname" />
             </p>
             <p>
-                <h:commandButton action="#{groupController.newGroup}" value="Absenden" />
+                <h:commandButton action="#{groupController.newGroup}" value="Send" />
             </p>
         </h:form>
+		<h:form>
+			<h:dataTable value="#{groupController.groupList}" var="g" border="1">
+				<h:column>
+					<f:facet name="header">
+						Name
+					</f:facet>
+					<h:inputText value="#{g.name}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Toggle Action
+					</f:facet>
+					<h:commandButton value="Delete" action="#{groupController.deleteGroup(g)}" />
+					<h:commandButton value="Save" action="#{groupController.saveGroup(g)}" />
+
+				</h:column>
+			</h:dataTable>
+		</h:form>
     </div>
     </h:body>
 </html>

@@ -104,35 +104,17 @@ public class NoteQuerys {
 			e.printStackTrace();
 		}
 	}
-
-	public static void setGroupRelation(Note note){
-		Connection conn = MySQLDAO.getConnection();
-		PreparedStatement pS = null;
-		String query = "INSERT INTO isin ( visible, done) VALUES (?, ?, ?, ?, ?);";
-
-		try {
-			// Query erstellen
-			pS = conn.prepareStatement(query);
-			
-
-			// Ausführen
-			pS.execute();
-
-			pS.close();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	public static void removeNote(Note note) {
+		GroupQuerys.deleteRelation(note.getId());
 		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
+		PreparedStatement pS = null;
+		String query = "DELETE FROM Note WHERE id = ?";
 		try {
-			Statement stmt = conn.createStatement();
-			String sql = "DELETE FROM Note " + "WHERE id = " + id;
-			stmt.executeUpdate(sql);
+			pS = conn.prepareStatement(query);
+			pS.setLong(1, id);
+			pS.execute();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -198,7 +180,6 @@ public class NoteQuerys {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		ResultSet rS = null;
-
 		String query = "SELECT * FROM Note";
 
 		try {
@@ -207,7 +188,6 @@ public class NoteQuerys {
 
 			// Ausführen
 			rS = pS.executeQuery();
-
 			while (rS.next()) {
 				Note note = new Note();
 				note.setId(rS.getLong("id"));
@@ -216,6 +196,7 @@ public class NoteQuerys {
 				note.setDescription(rS.getString("description"));
 				note.setVisible(rS.getBoolean("visible"));
 				note.setDone(rS.getBoolean("done"));
+				setGroup(note);
 				noteList.add(note);
 			}
 
@@ -230,5 +211,28 @@ public class NoteQuerys {
 			}
 		}
 		return noteList;
+	}
+
+	public static void setGroup (Note note) {
+		Connection groupConn = MySQLDAO.getConnection();
+		PreparedStatement groupPS = null;
+		ResultSet groupRS = null;
+		String groupQuery = "SELECT * FROM isin WHERE note_id = ?";
+		try {
+			groupPS = groupConn.prepareStatement(groupQuery);
+			groupPS.setLong(1, note.getId());
+			groupRS = groupPS.executeQuery();
+			while(groupRS.next())
+				note.setGroupName(groupRS.getString("groupname"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				groupPS.close();
+				groupRS.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

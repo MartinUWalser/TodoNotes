@@ -3,29 +3,29 @@ package ToDoNotes.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 
 import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQuerys;
 
 @ManagedBean( name = "IndexController", eager = true)
-@RequestScoped
+@ViewScoped
 @Entity
 public class IndexController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private ArrayList<Note> notesList;
-	
-	public IndexController(){
+
+	@PostConstruct
+	public void init(){
 		this.notesList = NoteQuerys.getAllNotes();
 	}
-	
-	public IndexController(ArrayList<Note> notesList){
-		this.notesList = notesList;
-	}
+
 
 	public String deleteNote(Note note) {
 		NoteQuerys.removeNote(note);
