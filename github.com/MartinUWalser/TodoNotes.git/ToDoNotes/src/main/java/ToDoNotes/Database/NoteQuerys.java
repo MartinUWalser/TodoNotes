@@ -9,8 +9,6 @@ import java.util.Date;
 
 import ToDoNotes.Bean.Note;
 
-import com.mysql.jdbc.*;
-
 public class NoteQuerys {
 
 	public static Note getNote(long id) {
@@ -106,9 +104,9 @@ public class NoteQuerys {
 	}
 	
 	public static void removeNote(Note note) {
-		GroupQuerys.deleteRelation(note.getId());
-		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
+		GroupQuerys.deleteRelation(id);
+		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query = "DELETE FROM Note WHERE id = ?";
 		try {
@@ -223,7 +221,7 @@ public class NoteQuerys {
 			groupPS.setLong(1, note.getId());
 			groupRS = groupPS.executeQuery();
 			while(groupRS.next())
-				note.setGroupName(groupRS.getString("groupname"));
+				note.setGroup(GroupQuerys.getGroup(groupRS.getLong("group_id")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -235,4 +233,5 @@ public class NoteQuerys {
 			}
 		}
 	}
+
 }
