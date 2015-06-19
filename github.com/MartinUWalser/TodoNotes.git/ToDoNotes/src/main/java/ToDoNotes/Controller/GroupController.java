@@ -15,7 +15,7 @@ import ToDoNotes.Database.GroupQuerys;
 @ManagedBean
 @ViewScoped
 public class GroupController implements Serializable {
-	
+
 	private Group group;
 	private ArrayList<Group> groupList;
     private ArrayList<Group> shortList;
