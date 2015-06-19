@@ -33,10 +33,6 @@ public class IndexController implements Serializable {
 		return null;
 	}
 	
-	public void setGroupName(long id) {
-		//TODO
-	}
-	
 	public String getName() {
 		return name;
 	}

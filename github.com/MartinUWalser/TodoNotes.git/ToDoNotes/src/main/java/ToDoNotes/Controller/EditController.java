@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class EditController implements Serializable {
         Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String idString = params.get("id");
-        this.groupNamesList = GroupQuerys.getAllGroupNames();
+        this.groupNamesList = GroupQuerys.getAllGroups();
         if (!idString.equals("") || !idString.equals(null)) {
            try {
                id = Integer.parseInt(idString);
@@ -55,7 +56,12 @@ public class EditController implements Serializable {
 
     public String saveNote() {
         NoteQuerys.updateNote(note);
-        GroupQuerys.updateIsInRelation(this.note, note.getGroupName());
+        GroupQuerys.updateIsInRelation(this.note, note.getGroup());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
         return "<success>";
     }
 

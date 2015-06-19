@@ -1,5 +1,6 @@
 package ToDoNotes.Controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,8 +28,14 @@ public class NewController implements Serializable {
 	
 	public String newNote() {
 		NoteQuerys.insertNote(this.note);
-		if(!note.getGroupName().equals(""))
-			GroupQuerys.setIsInRelation(this.note, note.getGroupName());
+		if(note.getGroup() != null) {
+			GroupQuerys.setIsInRelation(this.note, note.getGroup());
+		}
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+		} catch (IOException ioe){
+			ioe.printStackTrace();
+		}
 		return "<success>";
 	}
 	
@@ -38,8 +45,8 @@ public class NewController implements Serializable {
 		this.note = new Note();
 		Map<String,String> params =
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		note.setGroupName(params.get("group"));
-		this.groupList = GroupQuerys.getAllGroupNames();
+		note.setGroup(params.get("group"));
+		this.groupList = GroupQuerys.getAllGroups();
 	}
 
 	public ArrayList<Group> getGroupList() {
