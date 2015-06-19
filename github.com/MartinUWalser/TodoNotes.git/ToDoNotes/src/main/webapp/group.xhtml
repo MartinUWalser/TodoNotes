@@ -48,10 +48,15 @@
 					</f:facet>
 					<h:commandButton value="Delete" action="#{groupController.deleteGroup(g)}" />
 					<h:commandButton value="Save" action="#{groupController.saveGroup(g)}" />
-
 				</h:column>
 			</h:dataTable>
 		</h:form>
+		<h:form>
+            <h:selectOneMenu value="#{groupController.groupList}" name="group">
+                <f:selectItems value="#{newController.groupList}"
+                               var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+            </h:selectOneMenu>
+        </h:form>
     </div>
     </h:body>
 </html>
