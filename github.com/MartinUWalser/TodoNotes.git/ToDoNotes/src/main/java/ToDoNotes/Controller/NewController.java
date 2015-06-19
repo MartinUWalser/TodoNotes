@@ -2,12 +2,10 @@ package ToDoNotes.Controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -21,36 +19,35 @@ import ToDoNotes.Database.NoteQuerys;
 public class NewController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	String groupName;
 	private Note note;
-	private ArrayList<Group> groupNamesList; 
+	private ArrayList<Group> groupList;
 
 	public NewController(){
 	}
 	
 	public String newNote() {
 		NoteQuerys.insertNote(this.note);
-		if(groupName.equals(""))
-			GroupQuerys.setIsInRelation(this.note, this.groupName);
+		if(!note.getGroupName().equals(""))
+			GroupQuerys.setIsInRelation(this.note, note.getGroupName());
 		return "<success>";
 	}
 	
 
 	@PostConstruct
-	public void initd(){
-		Map<String,String> params =
-                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		this.groupName = params.get("group");
+	public void init(){
 		this.note = new Note();
-		this.groupNamesList = GroupQuerys.getAllGroupNames();
+		Map<String,String> params =
+				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		note.setGroupName(params.get("group"));
+		this.groupList = GroupQuerys.getAllGroupNames();
 	}
 
-	public ArrayList<Group> getGroupNamesList() {
-		return groupNamesList;
+	public ArrayList<Group> getGroupList() {
+		return groupList;
 	}
 
-	public void setGroupNamesList(ArrayList<Group> groupNamesList) {
-		this.groupNamesList = groupNamesList;
+	public void setGroupList(ArrayList<Group> groupNamesList) {
+		this.groupList = groupNamesList;
 	}
 	
 	public Note getNote() {
@@ -59,13 +56,5 @@ public class NewController implements Serializable {
 
 	public void setNote(Note note) {
 		this.note = note;
-	}
-	
-	public String getGroupName() {
-		return groupName;
-	}
-
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
 	}
 }

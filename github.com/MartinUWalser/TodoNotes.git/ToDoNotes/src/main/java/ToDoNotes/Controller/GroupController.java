@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import ToDoNotes.Bean.Group;
@@ -15,49 +14,42 @@ import ToDoNotes.Database.GroupQuerys;
 @ViewScoped
 public class GroupController implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private Group groupName;
-	private ArrayList<Group> groupNamesList;
+	private Group group;
+	private ArrayList<Group> groupList;
 
-	@PostConstruct
-	public void init() {}
 	
 	public String newGroup() {
-		GroupQuerys.insertGroup(groupName);
+		GroupQuerys.insertGroup(group);
 		return "<success>";
 	}
 	
 
 	@PostConstruct
-	public void initd(){
-		this.name ="";
-		this.groupName = new Group();
-		this.groupNamesList = GroupQuerys.getAllGroupNames();
+	public void init(){
+		this.group = new Group();
+		this.groupList = GroupQuerys.getAllGroupNames();
 	}
 
-	public ArrayList<Group> getGroupNamesList() {
-		return groupNamesList;
+	public String deleteGroup(Group group) {
+		GroupQuerys.removeGroup(group);
+		groupList.remove(group);
+		return null;
 	}
 
-	public void setGroupNamesList(ArrayList<Group> groupNames) {
-		this.groupNamesList = groupNames;
+	public ArrayList<Group> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(ArrayList<Group> groupNames) {
+		this.groupList = groupNames;
 	}
 	
-	public Group getGroupName() {
-		return this.groupName;
+	public Group getGroup() {
+		return this.group;
 	}
 
-	public void setGroupName(Group groupName) {
-		this.groupName = groupName;
+	public void setGroup(Group groupName) {
+		this.group = groupName;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 }

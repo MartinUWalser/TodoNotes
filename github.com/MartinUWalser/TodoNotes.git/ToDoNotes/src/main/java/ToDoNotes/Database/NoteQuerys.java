@@ -106,12 +106,15 @@ public class NoteQuerys {
 	}
 	
 	public static void removeNote(Note note) {
+		GroupQuerys.deleteRelation(note.getId());
 		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
+		PreparedStatement pS = null;
+		String query = "DELETE FROM Note WHERE id = ?";
 		try {
-			Statement stmt = conn.createStatement();
-			String sql = "DELETE FROM Note " + "WHERE id = " + id;
-			stmt.executeUpdate(sql);
+			pS = conn.prepareStatement(query);
+			pS.setLong(1, id);
+			pS.execute();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -185,7 +188,6 @@ public class NoteQuerys {
 
 			// Ausführen
 			rS = pS.executeQuery();
-
 			while (rS.next()) {
 				Note note = new Note();
 				note.setId(rS.getLong("id"));

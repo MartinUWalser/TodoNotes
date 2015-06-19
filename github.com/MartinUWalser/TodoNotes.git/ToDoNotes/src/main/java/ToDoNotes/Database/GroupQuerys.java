@@ -11,7 +11,7 @@ public class GroupQuerys {
 	public static void insertGroup(Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "INSERT INTO Group (name) VALUES (?);";
+		String query = "INSERT INTO `Group` (`name`) VALUES (?);";
 
 		try {
 			// Query erstellen
@@ -145,6 +145,132 @@ public class GroupQuerys {
 			}
 		}
 		return groupNames;
+	}
+
+	public static void removeGroup(Group group) {
+
+		String name = group.getName();
+		deleteRelations(name);
+		System.out.println("Call delete Entries with Groupname: "+ name + "...");
+		deleteEntries(name);
+		System.out.println("Call delete Entries successful");
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query = "DELETE FROM `Group` WHERE `name` = ?";
+		try {
+			pS = conn.prepareStatement(query);
+			pS.setString(1, name);
+			pS.execute();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+
+		}
+	}
+
+	private static void deleteEntries(String name) {
+		ArrayList<Note> notesList = getAllEntryIds(name);
+		for (Note note : notesList) {
+			System.out.println(note.getId());
+			NoteQuerys.removeNote(note);
+		}
+	}
+
+	public static ArrayList<Note> getAllEntryIds(String name) {
+		ArrayList<Note>	noteList = new ArrayList<Note>();
+		Connection conn = MySQLDAO.getConnection();
+		name = '"' + name + '"';
+		PreparedStatement pS = null;
+		ResultSet rS = null;
+		String query = "SELECT * FROM `isin` WHERE `groupname` = " + name;
+		//String query = "SELECT * FROM `isin` WHERE `groupname` = ?"; Löst Fragezeichen nicht auf...
+		try {
+			// Query erstellen
+			pS = conn.prepareStatement(query);
+	//		pS.setString(1, name);
+
+			// Ausführen
+			rS = pS.executeQuery();
+			while (rS.next()) {
+				Note note = new Note();
+				note.setId(rS.getLong("note_id"));
+				noteList.add(note);
+				System.out.println(note.getId());
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rS.close();
+				pS.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return noteList;
+	}
+
+	public static void deleteRelations(String name) {
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS;
+		String query = "DELETE FROM `isin` WHERE `groupname` = ?";
+		try {
+			pS = conn.prepareStatement(query);
+			pS.setString(1, name);
+			pS.execute();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+
+	public static void deleteRelation(long id) {
+		Connection conn = MySQLDAO.getConnection();
+		PreparedStatement pS = null;
+		String query = "DELETE FROM `isin` WHERE `note_id` = ?";
+		try {
+			pS = conn.prepareStatement(query);
+			pS.setLong(1, id);
+			pS.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
 	}
 
 	/*

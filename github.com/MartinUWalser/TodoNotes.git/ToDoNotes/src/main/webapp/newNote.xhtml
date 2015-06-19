@@ -34,14 +34,14 @@
 					p:placeholder="ToDo description" />
 			</p>
 			<p>
-                <h:selectOneMenu value="#{newController.groupName}" name="group">
-                   <f:selectItems value="#{newController.groupNamesList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+                <h:selectOneMenu value="#{newController.note.groupName}" name="group">
+                   <f:selectItems value="#{newController.groupList}"  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
 				</h:selectOneMenu>
             </p>
 			<h:selectBooleanCheckbox value="#{newController.note.visible}" /> Visible
             <h:selectBooleanCheckbox value="#{newController.note.done}" /> Done
         <p>
-				<h:commandButton action="#{newController.newNote}" value="Absenden" />
+				<h:commandButton action="#{newController.newNote}" value="Send" />
 			</p>
 		</h:form>
 	</div>

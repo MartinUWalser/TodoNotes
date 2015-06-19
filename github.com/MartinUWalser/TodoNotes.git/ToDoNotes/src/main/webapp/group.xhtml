@@ -28,12 +28,30 @@
 	<div class="note-space">
         <h:form>
             <p>
-                <h:inputText value="#{groupController.groupName.name}" p:placeholder="Groupname" />
+                <h:inputText value="#{groupController.group.name}" p:placeholder="Groupname" />
             </p>
             <p>
-                <h:commandButton action="#{groupController.newGroup}" value="Absenden" />
+                <h:commandButton action="#{groupController.newGroup}" value="Send" />
             </p>
         </h:form>
+		<h:form>
+			<h:dataTable value="#{groupController.groupList}" var="g" border="1">
+				<h:column>
+					<f:facet name="header">
+						Name
+					</f:facet>
+					<h:inputText value="#{g.name}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Toggle Action
+					</f:facet>
+					<h:commandButton value="Delete" action="#{groupController.deleteGroup(g)}" />
+					<h:commandButton value="Save" action="#{groupController.saveGroup(g)}" />
+
+				</h:column>
+			</h:dataTable>
+		</h:form>
     </div>
     </h:body>
 </html>
