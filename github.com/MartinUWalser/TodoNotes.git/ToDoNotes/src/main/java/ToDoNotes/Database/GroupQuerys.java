@@ -64,8 +64,13 @@ public class GroupQuerys {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query;
-		if(hasGroup(note)) {
-		query = "UPDATE isin SET groupname = ? WHERE note_id = ? ";
+		Boolean deletedRelation = false;
+
+		if (hasGroup(note) && groupName.equals("")) {
+			query = "DELETE FROM isin WHERE note_id = ?";
+			deletedRelation = true;
+		} else if(hasGroup(note)) {
+			query = "UPDATE isin SET groupname = ? WHERE note_id = ? ";
 		} else {
 		query =	"INSERT INTO isin (groupname, note_id) VALUES (?, ?);";
 		}
@@ -73,8 +78,13 @@ public class GroupQuerys {
 		try {
 			// Query erstellen
 			pS = conn.prepareStatement(query);
-			pS.setString(1, groupName);
-			pS.setLong(2, note.getId());
+
+			if (!deletedRelation) {
+				pS.setString(1, groupName);
+				pS.setLong(2, note.getId());
+			} else {
+				pS.setLong(1, note.getId());
+			}
 
 			// Ausführen
 			pS.execute();
