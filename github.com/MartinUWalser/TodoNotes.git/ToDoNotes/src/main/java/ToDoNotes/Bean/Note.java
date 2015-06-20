@@ -18,6 +18,7 @@ public class Note {
 
 
 	public Note() {
+		this.visible = true;
 	}
 
 	public String getTitle() {

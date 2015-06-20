@@ -1,6 +1,7 @@
 package ToDoNotes.Controller;
 
 import java.io.Serializable;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,16 +25,9 @@ public class VisibleController implements Serializable {
 
     @PostConstruct
     public void init(){
-        int index = 0;
         ArrayList<Note> tempList = NoteQuerys.getAllNotes();
-        ArrayList<Note> resultList = new ArrayList<Note>();
-        while(!tempList.isEmpty()){
-            if(tempList.get(index).isVisible()==false){
-                resultList.add(index,tempList.get(index));
-            }
-            tempList.remove(index);
-        }
-        this.notesList = resultList;
+        this.notesList = NoteQuerys.selectVisibleNotes(tempList, false);
+
     }
 
     public String getName() {

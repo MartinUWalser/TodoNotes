@@ -1,11 +1,10 @@
 package ToDoNotes.Database;
 
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.mysql.jdbc.util.ResultSetUtil;
 
 import ToDoNotes.Bean.Note;
 
@@ -23,7 +22,7 @@ public class NoteQuerys {
 
 			// Ausführen
 			rS = pS.executeQuery();
-			while(rS.next()) {
+			while (rS.next()) {
 				note.setId(id);
 				note.setTitle(rS.getString("title"));
 				note.setDate(rS.getDate("date"));
@@ -43,6 +42,44 @@ public class NoteQuerys {
 		}
 		return note;
 	}
+	
+	public static ArrayList<Note> selectVisibleNotes(ArrayList<Note> list, boolean visible) {
+		ArrayList<Note> resultList = new ArrayList<Note>();
+
+		if (visible) {
+			for (Note e : list) {
+				if (e.isVisible()) {
+					resultList.add(e);
+				}
+			}
+		} else {
+			for (Note e : list) {
+				if (!e.isVisible()) {
+					resultList.add(e);
+				}
+			}
+		}
+		return resultList;
+	}
+	
+	public static ArrayList<Note> selectDoneNotes(ArrayList<Note> list, boolean done) {
+		ArrayList<Note> resultList = new ArrayList<Note>();
+
+		if (done) {
+			for (Note e : list) {
+				if (e.isDone()) {
+					resultList.add(e);
+				}
+			}
+		} else {
+			for (Note e : list) {
+				if (!e.isDone()) {
+					resultList.add(e);
+				}
+			}
+		}
+		return resultList;
+	}
 
 	public static void insertNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
@@ -57,20 +94,20 @@ public class NoteQuerys {
 			pS = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pS.setString(1, note.getTitle());
 			pS.setString(2, note.getDescription());
-			pS.setDate(3, (date) );
+			pS.setDate(3, (date));
 			pS.setBoolean(4, note.isVisible());
 			pS.setBoolean(5, note.isDone());
 
 			// Ausführen
 			pS.execute();
-			
+
 			rS = pS.getGeneratedKeys();
-			if(rS.next()) {
+			if (rS.next()) {
 				note.setId(rS.getLong(1));
-			}	
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				pS.close();
 				rS.close();
@@ -102,7 +139,7 @@ public class NoteQuerys {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void removeNote(Note note) {
 		long id = note.getId();
 		GroupQuerys.deleteRelation(id);
@@ -164,7 +201,8 @@ public class NoteQuerys {
 		long id = note.getId();
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "UPDATE Note SET done = "+ note.isDone()+" WHERE id = " + id;
+			String sql = "UPDATE Note SET done = " + note.isDone()
+					+ " WHERE id = " + id;
 			stmt.executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -211,7 +249,7 @@ public class NoteQuerys {
 		return noteList;
 	}
 
-	public static void setGroup (Note note) {
+	public static void setGroup(Note note) {
 		Connection groupConn = MySQLDAO.getConnection();
 		PreparedStatement groupPS = null;
 		ResultSet groupRS = null;
@@ -220,7 +258,7 @@ public class NoteQuerys {
 			groupPS = groupConn.prepareStatement(groupQuery);
 			groupPS.setLong(1, note.getId());
 			groupRS = groupPS.executeQuery();
-			while(groupRS.next())
+			while (groupRS.next())
 				note.setGroup(GroupQuerys.getGroup(groupRS.getLong("group_id")));
 		} catch (Exception e) {
 			e.printStackTrace();

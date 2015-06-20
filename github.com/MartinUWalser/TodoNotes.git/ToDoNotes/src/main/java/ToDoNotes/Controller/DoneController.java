@@ -24,16 +24,8 @@ public class DoneController implements Serializable {
 
     @PostConstruct
     public void init(){
-        int index = 0;
-        ArrayList<Note> tempList = NoteQuerys.getAllNotes();
-        ArrayList<Note> resultList = new ArrayList<Note>();
-        while(!tempList.isEmpty()){
-            if(tempList.get(index).isDone()){
-                resultList.add(index,tempList.get(index));
-            }
-            tempList.remove(index);
-        }
-        this.notesList = resultList;
+    	ArrayList<Note> tempList = NoteQuerys.getAllNotes();
+        this.notesList = NoteQuerys.selectDoneNotes(tempList, false);
     }
 
     public String getName() {

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<h:head>
+	<h:outputStylesheet name="css/style.css" />
+	<title>ToDo-Notes</title>
+</h:head>
+<h:body>
+	<div class="headbar">
+		<h1>Group-manager</h1>
+	</div>
+	<div class="main">
+		<nav>
+			<ul class="fn-nav">
+				<li><a href="index.xhtml" id="index">Home</a></li>
+				<li><a href="newNote.xhtml" id="new">New note</a></li>
+				<li><a href="group.xhtml" id="group">Manage groups</a></li>
+				<li><a href="showGroup.xhtml" id="showGroup">Show groups</a></li>
+				<li><a href="done.xhtml" id="done">Finished notes</a></li>
+				<li><a href="notvisible.xhtml" id="notvisible">Hidden notes</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="note-space">
+		<h:form>
+			<h:outputText value="Select group "></h:outputText>
+			<h:selectOneMenu value="#{showGroupController.groupName}"
+				name="group">
+				<f:selectItems value="#{showGroupController.groupList}" var="g"
+					itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+			</h:selectOneMenu>
+			<h:outputText value=" and "></h:outputText>
+			<h:commandButton action="#{showGroupController.changeNotesList}"
+				value="show." />
+		</h:form>
+		<h:form>
+			<h:dataTable value="#{showGroupController.filteredNotesList}" var="n" border="1"
+				rendered="#{not empty showGroupController.filteredNotesList}">
+				<h:column>
+					<f:facet name="header">
+                        Title
+                    </f:facet>
+                    #{n.title}
+                </h:column>
+				<h:column>
+					<f:facet name="header">
+                        Date
+                    </f:facet>
+                    #{n.date}
+                </h:column>
+				<h:column>
+					<f:facet name="header">
+                        Description
+                    </f:facet>
+                    #{n.description}
+                </h:column>
+				<h:column>
+					<f:facet name="header">
+                        Group
+                    </f:facet>
+                    #{n.groupName}
+                </h:column>
+				<h:column>
+					<f:facet name="header">
+                        Toggle Action
+                    </f:facet>
+					<h:commandButton value="Delete"
+						action="#{IndexController.deleteNote(n)}" />
+					<h:commandButton value="(In)Visible"
+						action="#{IndexController.setVisible(n)}" />
+					<h:commandButton value="Done"
+						action="#{IndexController.setDone(n)}" />
+					<h:commandButton value="Edit" action="edit.xhtml">
+						<f:param name="id" value="#{n.id}" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</div>
+</h:body>
+</html>
