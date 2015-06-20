@@ -19,6 +19,7 @@
 				<li><a href="index.xhtml" id="index">Home</a></li>
                 <li><a href="newNote.xhtml" id="new">New note</a></li>
                 <li><a href="group.xhtml" id="group">Manage groups</a></li>
+                <li><a href="showGroup.xhtml" id="showGroup">Show groups</a>
                 <li><a href="done.xhtml" id="done">Finished notes</a></li>
                 <li><a href="notvisible.xhtml" id="notvisible">Hidden notes</a>
 				</li>
@@ -31,11 +32,12 @@
                 <h:inputText value="#{groupController.group.name}" p:placeholder="Groupname" />
             </p>
             <p>
-                <h:commandButton action="#{groupController.newGroup}" value="Send" />
+                <h:commandButton action="#{groupController.newGroup}" value="Create" />
             </p>
         </h:form>
 		<h:form>
-			<h:dataTable value="#{groupController.shortList}" var="g" border="1">
+		<h:outputText value="No group created yet!" rendered="#{empty groupController.shortList}" />
+			<h:dataTable value="#{groupController.shortList}" var="g" border="1" rendered="#{not empty groupController.shortList}" >
 				<h:column>
 					<f:facet name="header">
 						Name
@@ -51,12 +53,6 @@
 				</h:column>
 			</h:dataTable>
 		</h:form>
-		<h:form>
-            <h:selectOneMenu value="#{groupController.groupList}" name="group">
-                <f:selectItems value="#{newController.groupList}"
-                               var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
-            </h:selectOneMenu>
-        </h:form>
     </div>
     </h:body>
 </html>

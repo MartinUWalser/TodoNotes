@@ -16,19 +16,22 @@ import ToDoNotes.Database.GroupQuerys;
 @ViewScoped
 public class GroupController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Group group;
 	private ArrayList<Group> groupList;
     private ArrayList<Group> shortList;
 
 	
-	public String newGroup() {
+	public void newGroup() {
 		GroupQuerys.insertGroup(group);
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("group.xhtml");
 		} catch (IOException ioe){
 			ioe.printStackTrace();
 		}
-		return "<success>";
 	}
 	
 

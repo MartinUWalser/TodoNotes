@@ -1,5 +1,6 @@
 package ToDoNotes.Controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
 
 import ToDoNotes.Bean.Note;
@@ -23,14 +25,21 @@ public class IndexController implements Serializable {
 
 	@PostConstruct
 	public void init(){
-		this.notesList = NoteQuerys.getAllNotes();
+		ArrayList<Note> tempList = NoteQuerys.getAllNotes();
+		tempList = NoteQuerys.selectVisibleNotes(tempList, true);
+		tempList = NoteQuerys.selectDoneNotes(tempList, false);
+		this.notesList = tempList;
 	}
 
 
-	public String deleteNote(Note note) {
+	public void deleteNote(Note note) {
 		NoteQuerys.removeNote(note);
 		notesList.remove(note);
-		return null;
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+		} catch (IOException ioe){
+			ioe.printStackTrace();
+		}
 	}
 	
 	public String getName() {
