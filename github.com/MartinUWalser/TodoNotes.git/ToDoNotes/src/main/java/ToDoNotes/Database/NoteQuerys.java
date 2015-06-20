@@ -78,7 +78,7 @@ public class NoteQuerys {
 				}
 			}
 		}
-		return = resultList;
+		return resultList;
 	}
 
 	public static void insertNote(Note note) {

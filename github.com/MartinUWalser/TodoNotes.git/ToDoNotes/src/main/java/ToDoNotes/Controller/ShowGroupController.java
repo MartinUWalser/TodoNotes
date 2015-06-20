@@ -41,7 +41,7 @@ public class ShowGroupController implements Serializable {
 	public void changeNotesList(){
 		this.filteredNotesList.clear();
 		for(Note note : this.notesList){
-			if(note.getGroupName().equals(this.groupName) && note.getGroupName() != null){
+			if(note.getGroupName() != null && note.getGroupName().equals(this.groupName) ){
 				this.filteredNotesList.add(note);
 			}
 		}
