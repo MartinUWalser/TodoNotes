@@ -72,7 +72,8 @@ public class EditController implements Serializable {
      */
     public String saveNote() {
         NoteQuerys.updateNote(note);
-        GroupQuerys.updateIsInRelation(this.note, note.getGroup());
+        if(note.getGroup() != null)
+            GroupQuerys.updateIsInRelation(this.note, note.getGroup());
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
         } catch (IOException ioe){
