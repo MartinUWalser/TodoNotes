@@ -37,23 +37,39 @@ public class EditController implements Serializable {
                note = NoteQuerys.getNote(id);
                NoteQuerys.setGroup(note);
            } catch (Exception e) {
-                System.out.println("Fehler beim parse.");
+                System.out.println("Fehler beim parsen.");
             }
         }
     }
 
+    /**
+     * The getter for the id of the note you want to edit.
+     * @return The id of the current note.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * The getter for the note you want to edit.
+     * @return The note you want to edit.
+     */
     public Note getNote() {
         return note;
     }
 
+    /**
+     * The setter for the note of the EditController.
+     * @param note The note you want the current note to be set to.
+     */
     public void setNote(Note note) {
         this.note = note;
     }
 
+    /**
+     * The method which saves the note after you have edited it.
+     * @return <code>"<success>"</code> if the save was successful.
+     */
     public String saveNote() {
         NoteQuerys.updateNote(note);
         GroupQuerys.updateIsInRelation(this.note, note.getGroup());
@@ -65,6 +81,10 @@ public class EditController implements Serializable {
         return "<success>";
     }
 
+    /**
+     * The getter for the list of names of groups which are currently existing.
+     * @return The ArrayList of Groups which are currently existing.
+     */
     public ArrayList<Group> getGroupNamesList() {
         return groupNamesList;
     }

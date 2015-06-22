@@ -18,27 +18,12 @@ import ToDoNotes.Database.NoteQuerys;
 @ManagedBean
 @ViewScoped
 public class NewController implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 	private Note note;
 	private ArrayList<Group> groupList;
 
 	public NewController(){
 	}
-	
-	public String newNote() {
-		NoteQuerys.insertNote(this.note);
-		if(note.getGroup() != null) {
-			GroupQuerys.setIsInRelation(this.note, note.getGroup());
-		}
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-		} catch (IOException ioe){
-			ioe.printStackTrace();
-		}
-		return "<success>";
-	}
-	
 
 	@PostConstruct
 	public void init(){
@@ -49,18 +34,49 @@ public class NewController implements Serializable {
 		this.groupList = GroupQuerys.getAllGroups();
 	}
 
-	public ArrayList<Group> getGroupList() {
+    /**
+     * The method, which is used to create a new note in the database.
+     */
+    public void newNote() {
+        NoteQuerys.insertNote(this.note);
+        if(note.getGroup() != null) {
+            GroupQuerys.setIsInRelation(this.note, note.getGroup());
+        }
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * The getter for the list of groups, which are currently existing.
+     * @return The ArrayList of groups of NewController.
+     */
+    public ArrayList<Group> getGroupList() {
 		return groupList;
 	}
 
-	public void setGroupList(ArrayList<Group> groupNamesList) {
-		this.groupList = groupNamesList;
+    /**
+     * The setter for the groupList of NewController.
+     * @param groupsList The list of groups to which you want to set the groupList of NewController to.
+     */
+	public void setGroupList(ArrayList<Group> groupsList) {
+		this.groupList = groupsList;
 	}
-	
+
+    /**
+     * The getter of the note.
+     * @return The current note.
+     */
 	public Note getNote() {
 		return note;
 	}
 
+    /**
+     * The setter for the note of the class NewController.
+     * @param note The note to which you want to set the current note to.
+     */
 	public void setNote(Note note) {
 		this.note = note;
 	}

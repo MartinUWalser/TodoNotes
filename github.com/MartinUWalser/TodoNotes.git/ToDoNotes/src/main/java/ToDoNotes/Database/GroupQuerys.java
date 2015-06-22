@@ -66,6 +66,7 @@ public class GroupQuerys {
 		String query;
 		Boolean deletedRelation = false;
 
+
 		if (group.getName().equals("") && hasGroup(note)) {
 			query = "DELETE FROM isin WHERE note_id = ?";
 			deletedRelation = true;
@@ -92,7 +93,6 @@ public class GroupQuerys {
 			pS.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 	}

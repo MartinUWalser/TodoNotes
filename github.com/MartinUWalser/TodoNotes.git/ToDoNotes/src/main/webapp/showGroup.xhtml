@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:h="http://java.sun.com/jsf/html">
 
 
 <h:head>
@@ -29,13 +28,13 @@
 	</div>
 	<div class="note-space">
 		<h:form>
-			<h:outputText value="Select group "></h:outputText>
+			<h:outputText value="Select group "/>
 			<h:selectOneMenu value="#{showGroupController.groupName}"
 				name="group">
 				<f:selectItems value="#{showGroupController.groupList}" var="g"
 					itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
 			</h:selectOneMenu>
-			<h:outputText value=" and "></h:outputText>
+			<h:outputText value=" and "/>
 			<h:commandButton action="#{showGroupController.changeNotesList}"
 				value="show." />
 		</h:form>
