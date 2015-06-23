@@ -13,10 +13,11 @@ import javax.faces.bean.ViewScoped;
 
 
 
-import ToDoNotes.Bean.Group;
-import ToDoNotes.Bean.Note;
+
 import ToDoNotes.Database.GroupQueries;
 import ToDoNotes.Database.NoteQueries;
+import ToDoNotes.POJO.Group;
+import ToDoNotes.POJO.Note;
 
 /**
  * The class which is the bean for showGroup.xhtml

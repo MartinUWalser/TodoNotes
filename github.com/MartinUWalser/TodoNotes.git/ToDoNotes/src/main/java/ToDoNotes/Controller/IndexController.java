@@ -10,8 +10,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
 
-import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQueries;
+import ToDoNotes.POJO.Note;
 
 /**
  * The class which is the bean for index.xhtml.

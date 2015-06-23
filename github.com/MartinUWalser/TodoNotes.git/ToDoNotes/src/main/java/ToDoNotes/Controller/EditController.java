@@ -1,15 +1,16 @@
 package ToDoNotes.Controller;
 
-import ToDoNotes.Bean.Group;
-import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.GroupQueries;
 import ToDoNotes.Database.NoteQueries;
+import ToDoNotes.POJO.Group;
+import ToDoNotes.POJO.Note;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;

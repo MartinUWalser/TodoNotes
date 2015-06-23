@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 
-import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQueries;
+import ToDoNotes.POJO.Note;
 
 /**
  * The class which is the bean for done.xhtml.

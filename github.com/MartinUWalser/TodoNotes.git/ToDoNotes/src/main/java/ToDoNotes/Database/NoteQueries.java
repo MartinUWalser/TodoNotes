@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import ToDoNotes.Bean.Note;
+import ToDoNotes.POJO.Note;
 
 /**
  * Creates queries for the notes. Inhibits the methods to communicate with the database.

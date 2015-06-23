@@ -9,8 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import ToDoNotes.Bean.Group;
 import ToDoNotes.Database.GroupQueries;
+import ToDoNotes.POJO.Group;
 
 /**
  * The class which is the bean for group.xhtml.
