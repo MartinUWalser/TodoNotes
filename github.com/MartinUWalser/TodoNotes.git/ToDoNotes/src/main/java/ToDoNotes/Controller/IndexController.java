@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
 
@@ -38,6 +40,7 @@ public class IndexController implements Serializable {
 	public void deleteNote(Note note) {
 		NoteQueries.removeNote(note);
 		notesList.remove(note);
+		refreshPage();
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 		} catch (IOException ioe){
@@ -52,6 +55,7 @@ public class IndexController implements Serializable {
 	public void setVisible(Note note) {
 		note.setVisible(!note.isVisible());
 		NoteQueries.setVisible(note);
+		refreshPage();
 	}
 
     /**
@@ -61,6 +65,7 @@ public class IndexController implements Serializable {
 	public void setDone(Note note) {
 		note.setDone(!note.isDone());
 		NoteQueries.setDone(note);
+		refreshPage();
 	}
 
     /**
@@ -77,5 +82,17 @@ public class IndexController implements Serializable {
      */
 	public void setNotesList(ArrayList<Note> notesList) {
 		this.notesList = notesList;
+	}
+
+	/**
+	 * Refreshes the current page view.
+	 */
+	private void refreshPage() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String refreshPage = fc.getViewRoot().getViewId();
+		ViewHandler ViewH =fc.getApplication().getViewHandler();
+		UIViewRoot UIV = ViewH.createView(fc,refreshPage);
+		UIV.setViewId(refreshPage);
+		fc.setViewRoot(UIV);
 	}
 }
