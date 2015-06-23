@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The class which is the bean for edit.xhtml.
+ */
 @ManagedBean( name = "EditController", eager = true)
 @ViewScoped
 @Entity
@@ -73,7 +76,7 @@ public class EditController implements Serializable {
     public String saveNote() {
         NoteQuerys.updateNote(note);
         if(note.getGroup() != null)
-            GroupQuerys.updateIsInRelation(this.note, note.getGroup());
+            GroupQuerys.updateGroupName(this.note, note.getGroup());
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
         } catch (IOException ioe){

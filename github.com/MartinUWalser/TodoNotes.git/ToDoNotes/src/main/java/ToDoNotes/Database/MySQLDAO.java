@@ -4,29 +4,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * The class builds the connection to the database.
+ */
 public class MySQLDAO {
-
 	private static Connection conn = null;
-
 	// Hostname
 	private static String dbHost = "walser.in";
-
-	// Port -- Standard: 3306
+	// Port
 	private static String dbPort = "3306";
-
-	// Datenbankname
+	// databasename
 	private static String database = "ToDoNotes";
-
-	// Datenbankuser
+	// databaseuser
 	private static String dbUser = "ToDo";
-
-	// Datenbankpasswort
+	// databasepassword
 	private static String dbPassword = "12ToDo21";
 
+    /**
+     * The object that represents the connection.
+     */
 	private MySQLDAO() {
 		try {
-
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://" + dbHost + ":"
 					+ dbPort + "/" + database + "?" + "user=" + dbUser + "&"
@@ -37,7 +35,11 @@ public class MySQLDAO {
 			System.out.println("Connect nicht moeglich");
 		}
 	}
-	
+
+    /**
+     * The method to get the connection from the object.
+     * @return The connection.
+     */
 	public static Connection getConnection() {
 		try {
 			if (conn == null || conn.isClosed())

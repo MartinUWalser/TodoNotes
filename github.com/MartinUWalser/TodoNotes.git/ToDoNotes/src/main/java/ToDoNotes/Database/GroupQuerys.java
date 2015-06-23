@@ -6,8 +6,15 @@ import java.util.ArrayList;
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Bean.Note;
 
+/**
+ * Creates queries for groups of notes. Inhibits the methods to communicate with the mysql database.
+ */
 public class GroupQuerys {
 
+	/**
+	 * The method to insert a group in the database.
+	 * @param group The group you want to insert.
+	 */
 	public static void insertGroup(Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
@@ -24,16 +31,21 @@ public class GroupQuerys {
 			pS.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * The method to check if a note already has a group.
+	 * @param note The note whose group-status you want to check.
+	 * @return <code>true</code> if the note has a group <code>false</code> otherwise.
+	 */
 	private static boolean hasGroup(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query = "SELECT * FROM isin WHERE note_id = ?";
 		int i = 0;
+
 		try {
 			pS = conn.prepareStatement(query);
 			pS.setLong(1, note.getId());
@@ -42,32 +54,29 @@ public class GroupQuerys {
 			while(rS.next() && i < 1) {
 				++i;
 			}
-
-
-			// Ausführen
 			pS.execute();
-
 			pS.close();
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		if(i < 1) {
 			return false;
 		}
 		return true;
 	}
 
-	public static void updateIsInRelation(Note note, Group group) {
+    /**
+     * The method to update the relation between a note and a group.
+     * @param note The note you want to connect to a group.
+     * @param group The group you want the note to be connected with.
+     */
+	public static void updateGroupName(Note note, Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query;
 		Boolean deletedRelation = false;
 
-
-		if (group.getName().equals("") && hasGroup(note)) {
+		if (group.getName() != null && group.getName().equals("") && hasGroup(note)) {
 			query = "DELETE FROM isin WHERE note_id = ?";
 			deletedRelation = true;
 		} else if(hasGroup(note)) {
@@ -75,10 +84,8 @@ public class GroupQuerys {
 		} else {
 		query =	"INSERT INTO isin (group_id, note_id) VALUES (?, ?);";
 		}
-
 		try {
-			// Query erstellen
-			pS = conn.prepareStatement(query);
+		    pS = conn.prepareStatement(query);
 
 			if (!deletedRelation) {
 				pS.setLong(1, group.getId());
@@ -86,10 +93,7 @@ public class GroupQuerys {
 			} else {
 				pS.setLong(1, note.getId());
 			}
-
-			// Ausführen
-			pS.execute();
-
+            pS.execute();
 			pS.close();
 
 		} catch (SQLException e) {
@@ -97,28 +101,32 @@ public class GroupQuerys {
 			}
 	}
 
+    /**
+     * The method used to create a new relation between a note and a group.
+     * @param note The note you want to connect with a group.
+     * @param group The group you want the note to be connected with.
+     */
 	public static void setIsInRelation(Note note, Group group){
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query = "INSERT INTO isin (note_id, group_id) VALUES (?, ?);";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setLong(1, note.getId());
 			pS.setLong(2, group.getId());
-
-			// Ausführen
 			pS.execute();
-
 			pS.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
-	
+	}
+
+    /**
+     * The method to get all existing groups of the database including an empty group.
+     * @return The ArrayList of all groups.
+     */
 	public static ArrayList<Group> getAllGroups() {
 		ArrayList<Group> groupNames = new ArrayList<Group>();
 		Connection conn = MySQLDAO.getConnection();
@@ -130,10 +138,7 @@ public class GroupQuerys {
 		String query = "SELECT * FROM `Group`";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
-
-			// Ausführen
 			rS = pS.executeQuery();
 
 			while (rS.next()) {
@@ -144,20 +149,22 @@ public class GroupQuerys {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				rS.close();
 				pS.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return groupNames;
 	}
 
+    /**
+     * The method to remove a group from the database.
+     * @param group The group you want to be removed.
+     */
 	public static void removeGroup(Group group) {
 		ArrayList<Note> notesList = getAllEntryIds(group);
 		deleteRelations(group);
@@ -184,16 +191,24 @@ public class GroupQuerys {
 			} catch (SQLException se) {
 				se.printStackTrace();
 			}
-
 		}
 	}
 
+    /**
+     * The method to delete all entries from a list of notes.
+     * @param notesList The list of notes you want to be removed.
+     */
 	private static void deleteEntries(ArrayList<Note> notesList) {
 		for (Note note : notesList) {
 			NoteQuerys.removeNote(note);
 		}
 	}
 
+    /**
+     * The method to get all ids of all notes from a specific group.
+     * @param group The group whose note-ids you want to get.
+     * @return An ArrayList including all the notes of the group.
+     */
 	public static ArrayList<Note> getAllEntryIds(Group group) {
 		ArrayList<Note>	noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();
@@ -202,18 +217,15 @@ public class GroupQuerys {
 		String query = "SELECT * FROM `isin` WHERE `group_id` = ?";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setLong(1, group.getId());
-
-			// Ausführen
 			rS = pS.executeQuery();
+
 			while (rS.next()) {
 				Note note = new Note();
 				note.setId(rS.getLong("note_id"));
 				noteList.add(note);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -227,6 +239,10 @@ public class GroupQuerys {
 		return noteList;
 	}
 
+    /**
+     * The method to delete all relations from the table isin with the specified group.
+     * @param group The group whose relations you want to delete.
+     */
 	public static void deleteRelations(Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS;
@@ -253,6 +269,10 @@ public class GroupQuerys {
 		}
 	}
 
+    /**
+     * The method to delete the relation using the id of a note.
+     * @param id The id of a note whose relation you want to delete.
+     */
 	public static void deleteRelation(long id) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
@@ -277,18 +297,19 @@ public class GroupQuerys {
 		}
 	}
 
+    /**
+     * The method to update the name of a group in the database.
+     * @param group The group whose name you want to be updated.
+     */
 	public static void updateGroup(Group group) {
-		updateIsInRelation(group);
+        updateGroupName(group);
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "UPDATE `Group` SET `name` = ? WHERE `group_id` = ?";
+		String query = "UPDATE `Group` SET `name` = ? WHERE `id` = ?";
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setString(1, group.getName());
 			pS.setLong(2, group.getId());
-
-			// Ausführen
 			pS.execute();
 			pS.close();
 
@@ -297,17 +318,18 @@ public class GroupQuerys {
 		}
 	}
 
-	public static void updateIsInRelation(Group group) {
+    /**
+     * The method to update the name of a group in the database.
+     * @param group The group you are using to change its name in.
+     */
+	public static void updateGroupName(Group group) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
-		String query = "UPDATE `isin` SET `group_id` = ? WHERE `group_id` = ?";
+		String query = "UPDATE `Group` SET `name` = ? WHERE `id` = ?";
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setString(1, group.getName());
 			pS.setLong(2, group.getId());
-
-			// Ausführen
 			pS.execute();
 			pS.close();
 
@@ -316,6 +338,11 @@ public class GroupQuerys {
 		}
 	}
 
+    /**
+     * The method to get the group by using its id.
+     * @param id The id of the group you want to get.
+     * @return The group you need.
+     */
 	public static Group getGroup(long id) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
@@ -323,10 +350,8 @@ public class GroupQuerys {
 		String query = "SELECT * FROM `Group` WHERE id = ?";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setLong(1, id);
-			// Ausführen
 			rS = pS.executeQuery();
 
 			while (rS.next()) {
@@ -335,23 +360,24 @@ public class GroupQuerys {
 				group.setName(rS.getString("name"));
 				return group;
 			}
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				rS.close();
 				pS.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return null;
 	}
 
-
+    /**
+     * The method to get the group using its name.
+     * @param name The name of the group you want to get.
+     * @return The group you need.
+     */
 	public static Group getGroup(String name) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
@@ -359,10 +385,8 @@ public class GroupQuerys {
 		String query = "SELECT * FROM `Group` WHERE `name` = ?";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setString(1, name);
-			// Ausführen
 			rS = pS.executeQuery();
 
 			while (rS.next()) {
@@ -373,144 +397,15 @@ public class GroupQuerys {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				rS.close();
 				pS.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return null;
 	}
-	/*
-	public static void removeGroup(Note note) {
-		Connection conn = MySQLDAO.getConnection();
-		long id = note.getId();
-		try {
-			Statement stmt = conn.createStatement();
-			String sql = "DELETE FROM Note " + "WHERE id = " + id;
-			stmt.executeUpdate(sql);
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException se) {
-			}
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-	}
-
-	public static void setVisible(Note note) {
-		Connection conn = MySQLDAO.getConnection();
-		long id = note.getId();
-		try {
-			Statement stmt = conn.createStatement();
-			String sql = "UPDATE Note SET visible = " + note.isVisible()
-					+ " WHERE id = " + id;
-			stmt.executeUpdate(sql);
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException se) {
-			}
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-	}
-
-	public static ArrayList<Note> getAllNotes() {
-		ArrayList<Note> noteList = new ArrayList<Note>();
-		Connection conn = MySQLDAO.getConnection();
-		PreparedStatement pS = null;
-		ResultSet rS = null;
-
-		String query = "SELECT * FROM Note";
-
-		try {
-			// Query erstellen
-			pS = conn.prepareStatement(query);
-
-			// Ausführen
-			rS = pS.executeQuery();
-
-			while (rS.next()) {
-				Note note = new Note();
-				note.setId(rS.getLong("id"));
-				note.setTitle(rS.getString("title"));
-				note.setDate(rS.getDate("date"));
-				note.setDescription(rS.getString("description"));
-				note.setVisible(rS.getBoolean("visible"));
-				note.setDone(rS.getBoolean("done"));
-				noteList.add(note);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				rS.close();
-				pS.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return noteList;
-	}
-
-	public static ArrayList<String> getAllGroupNames() {
-		ArrayList<String> groupNames = new ArrayList<String>();
-		Connection conn = MySQLDAO.getConnection();
-		PreparedStatement pS = null;
-		ResultSet rS = null;
-
-		String query = "SELECT DISTINCT name FROM Group";
-
-		try {
-			// Query erstellen
-			pS = conn.prepareStatement(query);
-
-			// Ausführen
-			rS = pS.executeQuery();
-
-			while (rS.next()) {
-				groupNames.add(rS.getString("name"));
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				rS.close();
-				pS.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return groupNames;
-	}
-	 */
 }

@@ -8,8 +8,16 @@ import com.mysql.jdbc.util.ResultSetUtil;
 
 import ToDoNotes.Bean.Note;
 
+/**
+ * Creates queries for the notes. Inhibits the methods to communicate with the catabase.
+ */
 public class NoteQuerys {
 
+	/**
+	 * The method to get a note using an id.
+	 * @param id The id of the note you want to get.
+	 * @return The note you want to get.
+	 */
 	public static Note getNote(long id) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
@@ -17,10 +25,7 @@ public class NoteQuerys {
 		Note note = new Note();
 		String query = "SELECT * FROM Note WHERE id = " + id;
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
-
-			// Ausführen
 			rS = pS.executeQuery();
 			while (rS.next()) {
 				note.setId(id);
@@ -42,7 +47,14 @@ public class NoteQuerys {
 		}
 		return note;
 	}
-	
+
+    /**
+     * The method to get all notes from a list of notes whose visibility is <code>visible</code>.
+     * @param list The list of notes you want to filter using the attribute <code>visible</code>.
+     * @param visible <code>true</code> if you want to get all visible notes <code>false</code> to get the invisible
+     * ones.
+     * @return The list of notes filtered by visibility.
+     */
 	public static ArrayList<Note> selectVisibleNotes(ArrayList<Note> list, boolean visible) {
 		ArrayList<Note> resultList = new ArrayList<Note>();
 
@@ -61,7 +73,14 @@ public class NoteQuerys {
 		}
 		return resultList;
 	}
-	
+
+    /**
+     * The method to get all notes from a list of notes whose visibility is <code>done</code>.
+     * @param list The list of notes you want to filter using the attribute <code>done</code>.
+     * @param done <code>true</code> if you want to get all done notes <code>false</code> to get the ones which are
+     * not done.
+     * @return The list of notes filtered by the state of done.
+     */
 	public static ArrayList<Note> selectDoneNotes(ArrayList<Note> list, boolean done) {
 		ArrayList<Note> resultList = new ArrayList<Note>();
 
@@ -81,6 +100,10 @@ public class NoteQuerys {
 		return resultList;
 	}
 
+    /**
+     * The method to insert a note in the database.
+     * @param note The note you want to insert.
+     */
 	public static void insertNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		Date utilDate = new Date();
@@ -90,18 +113,15 @@ public class NoteQuerys {
 		String query = "INSERT INTO Note (title, description, date, visible, done) VALUES (?, ?, ?, ?, ?);";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pS.setString(1, note.getTitle());
 			pS.setString(2, note.getDescription());
 			pS.setDate(3, (date));
 			pS.setBoolean(4, note.isVisible());
 			pS.setBoolean(5, note.isDone());
-
-			// Ausführen
 			pS.execute();
-
 			rS = pS.getGeneratedKeys();
+
 			if (rS.next()) {
 				note.setId(rS.getLong(1));
 			}
@@ -112,34 +132,37 @@ public class NoteQuerys {
 				pS.close();
 				rS.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    e.printStackTrace();
 			}
 		}
 	}
 
+    /**
+     * The method to update the attributes of a note in the database.
+     * @param note The note you want to update.
+     */
 	public static void updateNote(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		PreparedStatement pS = null;
 		String query = "UPDATE Note SET title= ?, description= ?, visible= ?, done= ? WHERE id = ?";
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
 			pS.setString(1, note.getTitle());
 			pS.setString(2, note.getDescription());
 			pS.setBoolean(3, note.isVisible());
 			pS.setBoolean(4, note.isDone());
 			pS.setLong(5, note.getId());
-
-			// Ausführen
 			pS.execute();
 			pS.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+    /**
+     * The method to remove a note from the database.
+     * @param note The note you want to delete.
+     */
 	public static void removeNote(Note note) {
 		long id = note.getId();
 		GroupQuerys.deleteRelation(id);
@@ -169,6 +192,10 @@ public class NoteQuerys {
 		}
 	}
 
+    /**
+     * The method to change the visibility of a note.
+     * @param note The note whose visibility you want to change.
+     */
 	public static void setVisible(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
@@ -196,6 +223,10 @@ public class NoteQuerys {
 		}
 	}
 
+    /**
+     * The method to change the done-attribute of a note.
+     * @param note The note whose done-attribute you want to change.
+     */
 	public static void setDone(Note note) {
 		Connection conn = MySQLDAO.getConnection();
 		long id = note.getId();
@@ -211,6 +242,10 @@ public class NoteQuerys {
 		}
 	}
 
+    /**
+     * The method to get all the notes of the database.
+     * @return The ArrayList of notes of the database.
+     */
 	public static ArrayList<Note> getAllNotes() {
 		ArrayList<Note> noteList = new ArrayList<Note>();
 		Connection conn = MySQLDAO.getConnection();
@@ -219,11 +254,9 @@ public class NoteQuerys {
 		String query = "SELECT * FROM Note";
 
 		try {
-			// Query erstellen
 			pS = conn.prepareStatement(query);
-
-			// Ausführen
 			rS = pS.executeQuery();
+
 			while (rS.next()) {
 				Note note = new Note();
 				note.setId(rS.getLong("id"));
@@ -235,7 +268,6 @@ public class NoteQuerys {
 				setGroup(note);
 				noteList.add(note);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -249,6 +281,10 @@ public class NoteQuerys {
 		return noteList;
 	}
 
+    /**
+     * The method to set the group-attribute of a note.
+     * @param note The note whose group-attribute you want to set.
+     */
 	public static void setGroup(Note note) {
 		Connection groupConn = MySQLDAO.getConnection();
 		PreparedStatement groupPS = null;
@@ -271,5 +307,4 @@ public class NoteQuerys {
 			}
 		}
 	}
-
 }

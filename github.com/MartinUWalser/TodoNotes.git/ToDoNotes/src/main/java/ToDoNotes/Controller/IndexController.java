@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQuerys;
 
+/**
+ * The class which is the bean for index.xhtml.
+ */
 @ManagedBean( name = "IndexController", eager = true)
 @ViewScoped
 @Entity

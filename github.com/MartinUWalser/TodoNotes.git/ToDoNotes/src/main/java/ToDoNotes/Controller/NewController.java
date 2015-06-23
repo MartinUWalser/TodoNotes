@@ -15,6 +15,9 @@ import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.GroupQuerys;
 import ToDoNotes.Database.NoteQuerys;
 
+/**
+ * The class which is the bean for new.xhtml.
+ */
 @ManagedBean
 @ViewScoped
 public class NewController implements Serializable {
@@ -22,6 +25,9 @@ public class NewController implements Serializable {
 	private Note note;
 	private ArrayList<Group> groupList;
 
+	/**
+	 * The constructor of the class NewController.
+	 */
 	public NewController(){
 	}
 

@@ -12,6 +12,9 @@ import javax.faces.context.FacesContext;
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Database.GroupQuerys;
 
+/**
+ * The class which is the bean for group.xhtml.
+ */
 @ManagedBean
 @ViewScoped
 public class GroupController implements Serializable {

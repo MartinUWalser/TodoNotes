@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQuerys;
 
+/**
+ * The class which is the bean for visible.xhtml
+ */
 @ManagedBean( name = "VisibleController", eager = true)
 @ViewScoped
 @Entity
@@ -68,5 +71,4 @@ public class VisibleController implements Serializable {
     public void setNotesList(ArrayList<Note> notesList) {
         this.notesList = notesList;
     }
-
 }

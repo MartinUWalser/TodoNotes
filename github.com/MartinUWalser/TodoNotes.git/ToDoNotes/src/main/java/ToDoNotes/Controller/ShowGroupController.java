@@ -17,6 +17,9 @@ import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.GroupQuerys;
 import ToDoNotes.Database.NoteQuerys;
 
+/**
+ * The class which is the bean for showGroup.xhtml
+ */
 @ManagedBean
 @ViewScoped
 public class ShowGroupController implements Serializable {

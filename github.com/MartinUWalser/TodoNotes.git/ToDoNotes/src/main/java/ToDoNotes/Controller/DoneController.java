@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import ToDoNotes.Bean.Note;
 import ToDoNotes.Database.NoteQuerys;
 
+/**
+ * The class which is the bean for done.xhtml.
+ */
 @ManagedBean( name = "DoneController", eager = true)
 @ViewScoped
 @Entity
