@@ -6,13 +6,12 @@ import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Entity;
 
 import ToDoNotes.Bean.Note;
-import ToDoNotes.Database.NoteQuerys;
+import ToDoNotes.Database.NoteQueries;
 
 /**
  * The class which is the bean for index.xhtml.
@@ -22,14 +21,13 @@ import ToDoNotes.Database.NoteQuerys;
 @Entity
 public class IndexController implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String name;
-	private ArrayList<Note> notesList;
+    private ArrayList<Note> notesList;
 
 	@PostConstruct
 	public void init(){
-		ArrayList<Note> tempList = NoteQuerys.getAllNotes();
-		tempList = NoteQuerys.selectVisibleNotes(tempList, true);
-		tempList = NoteQuerys.selectDoneNotes(tempList, false);
+		ArrayList<Note> tempList = NoteQueries.getAllNotes();
+		tempList = NoteQueries.selectVisibleNotes(tempList, true);
+		tempList = NoteQueries.selectDoneNotes(tempList, false);
 		this.notesList = tempList;
 	}
 
@@ -38,7 +36,7 @@ public class IndexController implements Serializable {
 	 * @param note The note which you want to delete.
 	 */
 	public void deleteNote(Note note) {
-		NoteQuerys.removeNote(note);
+		NoteQueries.removeNote(note);
 		notesList.remove(note);
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
@@ -48,28 +46,12 @@ public class IndexController implements Serializable {
 	}
 
     /**
-     * The getter of the name of the current note.
-     * @return The name of the current note.
-     */
-	public String getName() {
-		return name;
-	}
-
-    /**
-     * The setter for the name of the current note.
-     * @param name The name you want to change the current note-name to.
-     */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-    /**
      * The setter for the visible-state of the current note.
      * @param note The note, whose visible-status you want to change.
      */
 	public void setVisible(Note note) {
 		note.setVisible(!note.isVisible());
-		NoteQuerys.setVisible(note);
+		NoteQueries.setVisible(note);
 	}
 
     /**
@@ -78,7 +60,7 @@ public class IndexController implements Serializable {
      */
 	public void setDone(Note note) {
 		note.setDone(!note.isDone());
-		NoteQuerys.setDone(note);
+		NoteQueries.setDone(note);
 	}
 
     /**

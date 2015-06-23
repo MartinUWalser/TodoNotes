@@ -13,14 +13,6 @@ public class Group {
 	public Group(){}
 
 	/**
-	 * The constructor of the class group, which initializes it and sets the name.
-	 * @param name The name of the group.
-	 */
-	public Group(String name) {
-		this.name = name;
-	}
-
-    /**
      * The getter for the name of the group.
      * @return The name of the group.
      */

@@ -38,7 +38,7 @@
 			<p>
                 <h:selectOneMenu value="#{newController.note.groupName}" name="group">
                    <f:selectItems value="#{newController.groupList}"
-								  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+								  var="g" itemLabel="#{g.name}" itemValue="#{g.name}"/>
 				</h:selectOneMenu>
             </p>
 			<h:selectBooleanCheckbox value="#{newController.note.visible}" /> Visible

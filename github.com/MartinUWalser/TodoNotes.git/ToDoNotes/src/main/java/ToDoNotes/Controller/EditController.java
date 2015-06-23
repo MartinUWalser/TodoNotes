@@ -2,8 +2,8 @@ package ToDoNotes.Controller;
 
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Bean.Note;
-import ToDoNotes.Database.GroupQuerys;
-import ToDoNotes.Database.NoteQuerys;
+import ToDoNotes.Database.GroupQueries;
+import ToDoNotes.Database.NoteQueries;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +24,6 @@ import java.util.Map;
 public class EditController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private long id;
     private Note note;
     private ArrayList<Group> groupNamesList;
 
@@ -33,24 +32,16 @@ public class EditController implements Serializable {
         Map<String,String> params =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String idString = params.get("id");
-        this.groupNamesList = GroupQuerys.getAllGroups();
+        this.groupNamesList = GroupQueries.getAllGroups();
         if (!idString.equals("") || !idString.equals(null)) {
            try {
-               id = Integer.parseInt(idString);
-               note = NoteQuerys.getNote(id);
-               NoteQuerys.setGroup(note);
+               long id = Integer.parseInt(idString);
+               note = NoteQueries.getNote(id);
+               NoteQueries.setGroup(note);
            } catch (Exception e) {
-                System.out.println("Fehler beim parsen.");
+                e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * The getter for the id of the note you want to edit.
-     * @return The id of the current note.
-     */
-    public long getId() {
-        return id;
     }
 
     /**
@@ -71,18 +62,16 @@ public class EditController implements Serializable {
 
     /**
      * The method which saves the note after you have edited it.
-     * @return <code>"<success>"</code> if the save was successful.
      */
-    public String saveNote() {
-        NoteQuerys.updateNote(note);
+    public void saveNote() {
+        NoteQueries.updateNote(note);
         if(note.getGroup() != null)
-            GroupQuerys.updateGroupName(this.note, note.getGroup());
+            GroupQueries.updateGroupName(this.note, note.getGroup());
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
         } catch (IOException ioe){
             ioe.printStackTrace();
         }
-        return "<success>";
     }
 
     /**

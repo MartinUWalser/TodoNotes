@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+		>
 
 <h:head>
 	<h:outputStylesheet name="css/style.css" />
@@ -26,7 +26,7 @@
 		</nav>
 	</div>
 	<div class="note-space">
-			<h:outputText value="Edit note:#{EditController.note.title}"></h:outputText>
+			<h:outputText value="Edit note:#{EditController.note.title}"/>
 		<h:form>
 			<p>
 				<h:inputText value="#{EditController.note.title}" />
@@ -39,7 +39,7 @@
 			<p>
 				<h:selectOneMenu value="#{EditController.note.groupName}" name="group">
 					<f:selectItems value="#{EditController.groupNamesList}"  var="g"
-								   itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+								   itemLabel="#{g.name}" itemValue="#{g.name}"/>
 				</h:selectOneMenu>
 			</p>
 			<p>

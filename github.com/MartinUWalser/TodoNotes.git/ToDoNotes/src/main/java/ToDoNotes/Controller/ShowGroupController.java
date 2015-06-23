@@ -2,6 +2,7 @@ package ToDoNotes.Controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -14,8 +15,8 @@ import javax.faces.bean.ViewScoped;
 
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Bean.Note;
-import ToDoNotes.Database.GroupQuerys;
-import ToDoNotes.Database.NoteQuerys;
+import ToDoNotes.Database.GroupQueries;
+import ToDoNotes.Database.NoteQueries;
 
 /**
  * The class which is the bean for showGroup.xhtml
@@ -32,9 +33,9 @@ public class ShowGroupController implements Serializable {
 
 	@PostConstruct
 	public void init(){
-		this.notesList = NoteQuerys.getAllNotes();
-		this.filteredNotesList = new ArrayList<Note>();
-		this.groupList = GroupQuerys.getAllGroups();
+		this.notesList = NoteQueries.getAllNotes();
+		this.filteredNotesList = new ArrayList<>();
+		this.groupList = GroupQueries.getAllGroups();
 	}
 
 	/**
@@ -42,11 +43,7 @@ public class ShowGroupController implements Serializable {
 	 */
 	public void changeNotesList(){
 		this.filteredNotesList.clear();
-		for(Note note : this.notesList){
-			if(note.getGroupName() != null && note.getGroupName().equals(this.groupName) ){
-				this.filteredNotesList.add(note);
-			}
-		}
+        this.filteredNotesList.addAll(this.notesList.stream().filter(note -> note.getGroupName() != null && note.getGroupName().equals(this.groupName)).collect(Collectors.toList()));
 	}
 
 	/**

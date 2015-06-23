@@ -1,6 +1,6 @@
 package ToDoNotes.Bean;
 
-import ToDoNotes.Database.GroupQuerys;
+import ToDoNotes.Database.GroupQueries;
 
 import java.util.Date;
 
@@ -142,7 +142,7 @@ public class Note {
      */
 	public void setGroup(String group) {
 		this.groupName = group;
-		this.group = GroupQuerys.getGroup(group);
+		this.group = GroupQueries.getGroup(group);
 	}
 
     /**

@@ -32,7 +32,7 @@
 			<h:selectOneMenu value="#{showGroupController.groupName}"
 				name="group">
 				<f:selectItems value="#{showGroupController.groupList}" var="g"
-					itemLabel="#{g.name}" itemValue="#{g.name}"></f:selectItems>
+					itemLabel="#{g.name}" itemValue="#{g.name}"/>
 			</h:selectOneMenu>
 			<h:outputText value=" and "/>
 			<h:commandButton action="#{showGroupController.changeNotesList}"

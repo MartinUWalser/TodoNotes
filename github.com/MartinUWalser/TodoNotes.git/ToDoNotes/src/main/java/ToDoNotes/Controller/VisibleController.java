@@ -1,18 +1,15 @@
 package ToDoNotes.Controller;
 
 import java.io.Serializable;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.Entity;
 
 import ToDoNotes.Bean.Note;
-import ToDoNotes.Database.NoteQuerys;
+import ToDoNotes.Database.NoteQueries;
 
 /**
  * The class which is the bean for visible.xhtml
@@ -22,38 +19,12 @@ import ToDoNotes.Database.NoteQuerys;
 @Entity
 public class VisibleController implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String name;
     private ArrayList<Note> notesList;
 
     @PostConstruct
     public void init(){
-        ArrayList<Note> tempList = NoteQuerys.getAllNotes();
-        this.notesList = NoteQuerys.selectVisibleNotes(tempList, false);
-    }
-
-    /**
-     * The getter for the name of the note.
-     * @return The name of the note.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * The setter for the name of the note.
-     * @param name The name to which you want to change the name of the note to.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * The method to change the visible-state of the note.
-     * @param note The note, whose visible-state you want to change.
-     */
-    public void setVisible(Note note) {
-        note.setVisible(!note.isVisible());
-        NoteQuerys.setVisible(note);
+        ArrayList<Note> tempList = NoteQueries.getAllNotes();
+        this.notesList = NoteQueries.selectVisibleNotes(tempList, false);
     }
 
     /**

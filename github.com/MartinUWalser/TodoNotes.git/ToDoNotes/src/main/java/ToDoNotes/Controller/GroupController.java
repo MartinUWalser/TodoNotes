@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import ToDoNotes.Bean.Group;
-import ToDoNotes.Database.GroupQuerys;
+import ToDoNotes.Database.GroupQueries;
 
 /**
  * The class which is the bean for group.xhtml.
@@ -27,17 +27,17 @@ public class GroupController implements Serializable {
 	@PostConstruct
 	public void init(){
 		this.group = new Group();
-		this.groupList = GroupQuerys.getAllGroups();
-        ArrayList<Group> tempshortList = GroupQuerys.getAllGroups();
-        tempshortList.remove(0);
-        this.shortList = tempshortList;
+		this.groupList = GroupQueries.getAllGroups();
+        ArrayList<Group> tempShortList = GroupQueries.getAllGroups();
+        tempShortList.remove(0);
+        this.shortList = tempShortList;
 	}
 
     /**
      * The method, which is used to create a new group in the database.
      */
     public void newGroup() {
-        GroupQuerys.insertGroup(group);
+        GroupQueries.insertGroup(group);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("group.xhtml");
         } catch (IOException ioe){
@@ -50,7 +50,7 @@ public class GroupController implements Serializable {
      * @param group The group which you want to delete.
      */
     public void deleteGroup(Group group) {
-		GroupQuerys.removeGroup(group);
+		GroupQueries.removeGroup(group);
 		groupList.remove(group);
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
@@ -64,7 +64,7 @@ public class GroupController implements Serializable {
      * @param group The group which you want to save.
      */
 	public void saveGroup(Group group) {
-		GroupQuerys.updateGroup(group);
+		GroupQueries.updateGroup(group);
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("group.xhtml");
 		} catch (IOException ioe){

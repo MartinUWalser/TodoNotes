@@ -7,18 +7,8 @@ import java.sql.SQLException;
 /**
  * The class builds the connection to the database.
  */
-public class MySQLDAO {
+class MySQLDAO {
 	private static Connection conn = null;
-	// Hostname
-	private static String dbHost = "walser.in";
-	// Port
-	private static String dbPort = "3306";
-	// databasename
-	private static String database = "ToDoNotes";
-	// databaseuser
-	private static String dbUser = "ToDo";
-	// databasepassword
-	private static String dbPassword = "12ToDo21";
 
     /**
      * The object that represents the connection.
@@ -26,13 +16,18 @@ public class MySQLDAO {
 	private MySQLDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://" + dbHost + ":"
+            String dbHost = "walser.in";
+            String dbPort = "3306";
+            String database = "ToDoNotes";
+            String dbUser = "ToDo";
+            String dbPassword = "12ToDo21";
+            conn = DriverManager.getConnection("jdbc:mysql://" + dbHost + ":"
 					+ dbPort + "/" + database + "?" + "user=" + dbUser + "&"
 					+ "password=" + dbPassword);
 		} catch (ClassNotFoundException e) {
-			System.out.println("Treiber nicht gefunden");
+			System.out.println("Driver not found.");
 		} catch (SQLException e) {
-			System.out.println("Connect nicht moeglich");
+			System.out.println("Connection not possible.");
 		}
 	}
 

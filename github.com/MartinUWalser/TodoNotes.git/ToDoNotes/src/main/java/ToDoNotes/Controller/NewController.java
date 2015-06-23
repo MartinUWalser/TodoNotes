@@ -12,8 +12,8 @@ import javax.faces.context.FacesContext;
 
 import ToDoNotes.Bean.Group;
 import ToDoNotes.Bean.Note;
-import ToDoNotes.Database.GroupQuerys;
-import ToDoNotes.Database.NoteQuerys;
+import ToDoNotes.Database.GroupQueries;
+import ToDoNotes.Database.NoteQueries;
 
 /**
  * The class which is the bean for new.xhtml.
@@ -37,16 +37,16 @@ public class NewController implements Serializable {
 		Map<String,String> params =
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		note.setGroup(params.get("group"));
-		this.groupList = GroupQuerys.getAllGroups();
+		this.groupList = GroupQueries.getAllGroups();
 	}
 
     /**
      * The method, which is used to create a new note in the database.
      */
     public void newNote() {
-        NoteQuerys.insertNote(this.note);
+        NoteQueries.insertNote(this.note);
         if(note.getGroup() != null) {
-            GroupQuerys.setIsInRelation(this.note, note.getGroup());
+            GroupQueries.setIsInRelation(this.note, note.getGroup());
         }
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");

@@ -9,15 +9,15 @@ h1 {
 
 .headbar {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     height: 50px;
     width: 100%;
     background-color: #FD8900;
 }
 
 .headbar h1 {
-    align: left;
+    text-align: left;
     color: white;
 }
 
@@ -28,7 +28,7 @@ h1 {
 }
 nav {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     top: 42px;
     left: -10px;
     height: 93%;
@@ -41,8 +41,8 @@ nav {
 
 #logo {
     position: fixed;
-    right: 0px;
-    bottom: 0px;
+    right: 0;
+    bottom: 0;
 }
 
 a {
@@ -56,7 +56,7 @@ a {
 .fn-nav {
     position: absolute;
     width: 100%;
-    right: 0px;
+    right: 0;
 }
 
 .note-space {
