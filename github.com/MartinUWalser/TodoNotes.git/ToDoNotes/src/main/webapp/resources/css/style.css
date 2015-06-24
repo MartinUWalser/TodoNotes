@@ -70,3 +70,19 @@ input[type="submit"] {
     width: 67px;
 }
 
+table {
+    width: 900px;
+}
+
+td:last-child {
+    width: 67px;
+}
+
+.groupEditTable {
+    width: auto;
+}
+
+.groupEditTable td:last-child {
+    width: auto;
+}
+
