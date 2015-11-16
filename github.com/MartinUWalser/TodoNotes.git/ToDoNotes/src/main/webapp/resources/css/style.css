@@ -51,7 +51,7 @@ a {
 }
 
 .fn-nav li { padding-left: 5px; list-style-type: none; background: #fdb866; }
-.fn-nav li:nth-child(odd) { padding-left: 5px;  list-style-type: none; background:#FD8900; }
+.fn-nav li:nth-child(odd) { background:#FD8900; }
 
 .fn-nav {
     position: absolute;
@@ -64,5 +64,25 @@ a {
     top: 50px;
     left: 160px;
     margin-left: 80px;
+}
+
+input[type="submit"] {
+    width: 67px;
+}
+
+table {
+    width: 900px;
+}
+
+td:last-child {
+    width: 67px;
+}
+
+.groupEditTable {
+    width: auto;
+}
+
+.groupEditTable td:last-child {
+    width: auto;
 }
 

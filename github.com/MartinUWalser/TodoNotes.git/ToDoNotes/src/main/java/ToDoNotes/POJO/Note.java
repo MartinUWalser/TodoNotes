@@ -1,4 +1,4 @@
-package ToDoNotes.Bean;
+package ToDoNotes.POJO;
 
 import ToDoNotes.Database.GroupQueries;
 

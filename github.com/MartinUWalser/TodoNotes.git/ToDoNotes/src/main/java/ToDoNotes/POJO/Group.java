@@ -1,4 +1,4 @@
-package ToDoNotes.Bean;
+package ToDoNotes.POJO;
 
 /**
  * The class group, which is needed to save groups in the database.

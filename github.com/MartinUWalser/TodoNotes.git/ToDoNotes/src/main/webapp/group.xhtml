@@ -38,7 +38,7 @@
         </h:form>
 		<h:form>
 		<h:outputText value="No group created yet!" rendered="#{empty groupController.shortList}" />
-			<h:dataTable value="#{groupController.shortList}" var="g" border="1" rendered="#{not empty groupController.shortList}" >
+			<h:dataTable class="groupEditTable" value="#{groupController.shortList}" var="g" border="1" rendered="#{not empty groupController.shortList}" >
 				<h:column>
 					<f:facet name="header">
 						Name

@@ -3,8 +3,8 @@ package ToDoNotes.Database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import ToDoNotes.Bean.Group;
-import ToDoNotes.Bean.Note;
+import ToDoNotes.POJO.Group;
+import ToDoNotes.POJO.Note;
 
 /**
  * Creates queries for groups of notes. Inhibits the methods to communicate with the mysql database.
